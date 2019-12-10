@@ -1,5 +1,6 @@
 import { Component, Injectable } from '@angular/core';
 import { Product, ProductClass } from 'src/model/Product';
+import { MealsClass, Meals } from 'src/model/Meals';
 
 @Component({
   selector: 'app-home',
@@ -10,10 +11,10 @@ import { Product, ProductClass } from 'src/model/Product';
 
 export class HomePage {
 
-  product: Product;
-  constructor(private productClass: ProductClass) {
-    this.product = productClass.getProduct();
-
+  product: Array<Meals>;
+  constructor(private productClass: MealsClass) {
+      productClass.fillArray();
+      console.log(productClass.getKcalFromMeal('lunch'));
   }
 
 }
