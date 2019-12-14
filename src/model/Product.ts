@@ -33,7 +33,6 @@ export class ProductData extends Product {
             case 3:
                 return { id: '3', name: 'cake', kcal: 89, protein: 1, fat: 0.1, carbo: 21.8 };
         }
-
-
 }
+
 }

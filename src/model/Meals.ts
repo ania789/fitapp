@@ -15,18 +15,22 @@ export class Meals {
 
 }
 
-export class Product {
+export class UserProduct {
     data: ProductData;
     weight: number;
-    // getKcal() {
-    //     return this.data.kcal * this.weight;
-    // }
+
+    constructor(data: ProductData, weight: number){
+        this.data = data;
+        this.weight = weight;
+    }
+
 
 }
 
 export class MealClass extends Meals {
-    productList: Array<Product> = [];
+    productList: Array<UserProduct> = [];
     kcalValue: number;
+    product: UserProduct;
     // fillArrayProduct() {
     //     const Banan: ProductData = new ProductData ('1', 'banana', 89, 1, 0.1, 21.8);
     //     this.productList.push({data: Banan, weight: 100});
@@ -47,39 +51,57 @@ export class MealClass extends Meals {
 
     addProduct(weight: number) {
         const Sugar: ProductData = new ProductData ('1', 'sugar', 89, 1, 0.5, 321.8);
-        const Chocolate: ProductData = new ProductData ('1', 'chocolate', 100, 1.2, 1.1, 121.8);
-        const Banana: ProductData = new ProductData ('1', 'banana', 120, 1, 9.1, 221.8);
+        this.product = new UserProduct(Sugar, 100);
+        // tslint:disable-next-line:forin
+
+        // const Chocolate: ProductData = new ProductData ('1', 'chocolate', 100, 1.2, 1.1, 121.8);
+        // const Banana: ProductData = new ProductData ('1', 'banana', 120, 1, 9.1, 221.8);
         this.productList.push({data: Sugar, weight});
-        this.productList.push({data: Chocolate, weight});
-        this.productList.push({data: Banana, weight});
+        // this.productList.push({data: Chocolate, weight});
+        // this.productList.push({data: Banana, weight});
+    }
+
+    getInfoAboutAddedProduct(nutrient: NutrientType): number {
+       
+        return this.product.data[nutrient.toLowerCase()] * (this.convertWeight(this.product.weight));
+        
+    }
+
+    convertWeight(weight: number) {
+        return weight * 0.01;
+    }
+
+    displayProductListArray() {
+        return this.productList;
     }
 
     recount(property: NutrientType): number {
         const propertyName = property;
-        let counter = 0;
-        this.productList.forEach(value => {
-            counter += value.data[propertyName];
-            console.log(counter);
-        });
-        console.log(counter);
-        return counter;
+        // let counter = 0;
+        // this.productList.forEach(value => {
+        //     counter += value.data[propertyName];
+        //     console.log(counter);
+        // });
+        // console.log(counter);
+        // return counter;
+        const sumOfNutrientType = this.productList.reduce((sum, currentValue) => {
+            return Math.round(sum + (currentValue.data[propertyName] * this.convertWeight(currentValue.weight)));
+          }, 0);
+        return sumOfNutrientType;
 
 
     }
 
+    getNameFromAddedProduct(): Array<string> {
+        const propertyName = 'name';
+        const result = this.productList.map(a  => a.data.name);
+        console.log(result);
+        return result;
+    }
 
-
-    // getValueFromMeals(property: NutrientType): number {
-    //      const propertyName = property;
-    //     // this.productList.forEach(value => {
-    //     //     return value.data[propertyName];
-    //     // });
-    //     // return this;
-    //     //let result = this.productList.map(a => a.data[property]);
-    // }
-
-
-
+    getPropertiesFromAddedProducts(weightOfProduct: number, weight: number) {
+        return weightOfProduct * (weight * this.convertWeight(weight));
+    }
 
 
 
