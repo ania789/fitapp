@@ -8,8 +8,8 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { ProductClass } from 'src/model/Product';
-import { MealsClass } from 'src/model/Meals';
+import { MealClass } from 'src/model/Meals';
+import { ProductData } from 'src/model/Product';
 
 @NgModule({
   declarations: [AppComponent],
@@ -18,8 +18,8 @@ import { MealsClass } from 'src/model/Meals';
   providers: [
     StatusBar,
     SplashScreen,
-    ProductClass,
-    MealsClass,
+    MealClass,
+    ProductData,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

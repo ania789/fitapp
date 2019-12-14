@@ -1,48 +1,86 @@
-import { Product } from './Product';
+import {ProductData } from './Product';
+import { ThrowStmt } from '@angular/compiler';
 
-export interface Meals {
+export enum MealType {BREAKFAST, LUNCH, DINNER, SUPPER}
+
+export enum NutrientType { KCAL= 'kcal', PROTEIN = 'protein', FAT = 'fat', CARBO =  'carbo'}
+
+export class Meals {
     id: string;
-    name: string;
-    kcal: number;
-    protein: number;
-    fat: number;
-    carbo: number;
-    meal: string;
+    mealType: MealType;
+    // kcal: number;
+    // protein: number;
+    // fat: number;
+    // carbo: number;
 
 }
 
-export class MealsClass implements Meals {
-    meal: string;
-    id: string;
-    name: string;
-    kcal: number;
-    protein: number;
-    fat: number;
-    carbo: number;
+export class Product {
+    data: ProductData;
+    weight: number;
+    // getKcal() {
+    //     return this.data.kcal * this.weight;
+    // }
 
-    productList: Array<Meals> = [];
-    kcalCounter: number;
+}
 
-    fillArray() {
-        const result: Meals = {meal: 'breakfast', id: '1', name: 'banana', kcal: 89, protein: 1, fat: 0.1, carbo: 21.8 };
-        const result2: Meals = {meal: 'breakfast', id: '1', name: 'banana', kcal: 89, protein: 1, fat: 0.1, carbo: 21.8 };
-        const result3: Meals = {meal: 'lunch', id: '1', name: 'banana', kcal: 89, protein: 1, fat: 0.1, carbo: 21.8 };
-        this.productList.push(result);
-        this.productList.push(result2);
-        this.productList.push(result3);
+export class MealClass extends Meals {
+    productList: Array<Product> = [];
+    kcalValue: number;
+    // fillArrayProduct() {
+    //     const Banan: ProductData = new ProductData ('1', 'banana', 89, 1, 0.1, 21.8);
+    //     this.productList.push({data: Banan, weight: 100});
+    // }
+
+    getMealName(): string {
+        switch (this.mealType) {
+            case MealType.BREAKFAST:
+                return 'breakfast';
+            case MealType.LUNCH:
+                return 'lunch';
+            case MealType.DINNER:
+                return 'dinner';
+            case MealType.SUPPER:
+                return 'supper';
+        }
     }
 
+    addProduct(weight: number) {
+        const Sugar: ProductData = new ProductData ('1', 'sugar', 89, 1, 0.5, 321.8);
+        const Chocolate: ProductData = new ProductData ('1', 'chocolate', 100, 1.2, 1.1, 121.8);
+        const Banana: ProductData = new ProductData ('1', 'banana', 120, 1, 9.1, 221.8);
+        this.productList.push({data: Sugar, weight});
+        this.productList.push({data: Chocolate, weight});
+        this.productList.push({data: Banana, weight});
+    }
 
-    getKcalFromMeal(mealName: string): number {
-        this.kcalCounter = 0;
+    recount(property: NutrientType): number {
+        const propertyName = property;
+        let counter = 0;
         this.productList.forEach(value => {
-            if((value.meal).match(mealName)){
-                this.kcalCounter += value.kcal;
-            }
+            counter += value.data[propertyName];
+            console.log(counter);
         });
-        return this.kcalCounter;
-        //this.productList.forEach(x=> total +=x.kcal);
+        console.log(counter);
+        return counter;
+
+
     }
+
+
+
+    // getValueFromMeals(property: NutrientType): number {
+    //      const propertyName = property;
+    //     // this.productList.forEach(value => {
+    //     //     return value.data[propertyName];
+    //     // });
+    //     // return this;
+    //     //let result = this.productList.map(a => a.data[property]);
+    // }
+
+
+
+
 
 
 
