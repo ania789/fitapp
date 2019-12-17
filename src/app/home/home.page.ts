@@ -13,31 +13,37 @@ import { Product, ProductData } from 'src/model/Product';
 export class HomePage {
   meal: MealClass;
   mealName: string;
+  product: UserProduct;
   productName;
   mealKcal: number;
   mealProtein: number;
   mealFat: number;
   mealCarbo: number;
   allProducts: Array<ProductData>;
-  addedProducts: Array<string> = [];
-  mealOfAdded: number;
-  nutrient: NutrientType;
+  addedProducts: Array<UserProduct> = [];
+  addedProductName: string;
+  addedProductKcal: number;
+  addedProductProtein: number;
+  addedProductFat: number;
+  addedProductCarbo: number;
 
   constructor() {
     this.meal = new MealClass();
     this.meal.mealType = MealType.BREAKFAST;
     this.mealName = this.meal.getMealName();
     this.meal.addProduct(100);
-    this.mealOfAdded = this.meal.getInfoAboutAddedProduct(NutrientType.KCAL);
-    this.mealOfAdded = this.meal.getInfoAboutAddedProduct(NutrientType.KCAL);
-    this.mealOfAdded = this.meal.getInfoAboutAddedProduct(NutrientType.KCAL);
-
-    this.addedProducts = this.meal.getNameFromAddedProduct();
+    this.addedProducts = this.meal.productList;
+    // this.addedProductName = this.meal.getNameOfAddedProduct(this.product);
+    // this.addedProductKcal = this.meal.getInfoAboutAddedProduct(NutrientType.KCAL, this.product);
+    // this.addedProductProtein = this.meal.getInfoAboutAddedProduct(NutrientType.PROTEIN, this.product);
+    // this.addedProductFat = this.meal.getInfoAboutAddedProduct(NutrientType.FAT, this.product);
+    // this.addedProductCarbo = this.meal.getInfoAboutAddedProduct(NutrientType.CARBO, this.product);
+    // this.addedProducts = this.meal.getNameFromAddedProduct();
     this.mealKcal = this.meal.recount(NutrientType.KCAL);
     this.mealProtein = this.meal.recount(NutrientType.PROTEIN);
     this.mealFat = this.meal.recount(NutrientType.FAT);
     this.mealCarbo = this.meal.recount(NutrientType.CARBO);
-
+    // // this.meal.deleteProduct('sugar');
     // //this.mealProtein = this.meal.getValueFromMeals(NutrientType.PROTEIN);
     // this.meal.getValueFromMeals(NutrientType.FAT);
     // this.meal.getValueFromMeals(NutrientType.CARBO);

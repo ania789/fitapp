@@ -15,5 +15,10 @@
   <div>Liczba protein (suma): {{mealFat}}</div>
   <div>Liczba carbo (suma): {{mealCarbo}}</div>
   <div>Dodane produkty</div>
-  <div> {{mealOfAdded}}</div>
+  <div *ngFor="let product of addedProducts">Nazwa produktu: {{product.data.name}} 
+    Liczba kalorii: {{product.data.kcal * product.weight * 0.01}} 
+    Liczba bialka: {{product.data.protein*product.weight * 0.01}}
+    Liczba tluszczu: {{product.data.fat * product.weight * 0.01}}
+    Liczba carbo: {{product.data.carbo * product.weight * 0.01}}
+    </div>
 </ion-content>

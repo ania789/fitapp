@@ -19,7 +19,7 @@ export class UserProduct {
     data: ProductData;
     weight: number;
 
-    constructor(data: ProductData, weight: number){
+    constructor(data: ProductData, weight: number) {
         this.data = data;
         this.weight = weight;
     }
@@ -30,7 +30,6 @@ export class UserProduct {
 export class MealClass extends Meals {
     productList: Array<UserProduct> = [];
     kcalValue: number;
-    product: UserProduct;
     // fillArrayProduct() {
     //     const Banan: ProductData = new ProductData ('1', 'banana', 89, 1, 0.1, 21.8);
     //     this.productList.push({data: Banan, weight: 100});
@@ -51,28 +50,27 @@ export class MealClass extends Meals {
 
     addProduct(weight: number) {
         const Sugar: ProductData = new ProductData ('1', 'sugar', 89, 1, 0.5, 321.8);
-        this.product = new UserProduct(Sugar, 100);
+        const product: UserProduct  = new UserProduct(Sugar, 100);
         // tslint:disable-next-line:forin
 
-        // const Chocolate: ProductData = new ProductData ('1', 'chocolate', 100, 1.2, 1.1, 121.8);
-        // const Banana: ProductData = new ProductData ('1', 'banana', 120, 1, 9.1, 221.8);
+        const Chocolate: ProductData = new ProductData ('1', 'chocolate', 100, 1.2, 1.1, 121.8);
+        const Banana: ProductData = new ProductData ('1', 'banana', 120, 1, 9.1, 221.8);
         this.productList.push({data: Sugar, weight});
-        // this.productList.push({data: Chocolate, weight});
-        // this.productList.push({data: Banana, weight});
+        this.productList.push({data: Chocolate, weight});
+        this.productList.push({data: Banana, weight});
     }
 
-    getInfoAboutAddedProduct(nutrient: NutrientType): number {
-       
-        return this.product.data[nutrient.toLowerCase()] * (this.convertWeight(this.product.weight));
-        
+
+    getNameOfAddedProduct(product: UserProduct): string {
+        return product.data.name;
     }
 
-    convertWeight(weight: number) {
+    convertWeight(weight: number): number {
         return weight * 0.01;
     }
 
     displayProductListArray() {
-        return this.productList;
+        console.log(this.productList);
     }
 
     recount(property: NutrientType): number {
@@ -101,6 +99,16 @@ export class MealClass extends Meals {
 
     getPropertiesFromAddedProducts(weightOfProduct: number, weight: number) {
         return weightOfProduct * (weight * this.convertWeight(weight));
+    }
+
+    deleteProduct(nameOfdeleteProduct: string) {
+        // tslint:disable-next-line:forin
+        // tslint:disable-next-line:no-var-keyword
+        for (var i = 0; i < this.productList.length; i++) {
+             if ( this.productList[i].data.name === nameOfdeleteProduct) {
+                this.productList.splice(i, 1);
+            }
+        }
     }
 
 
