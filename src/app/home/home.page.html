@@ -9,16 +9,16 @@
 <ion-content>
   <div>Wszystkie produkty, ktore mozna dodac</div>
   <div *ngFor="let product of allProducts">Nazwa produktu: {{product.name}} Liczba kalorii: {{product.kcal}} Liczba tluszczu: {{product.fat}} Liczba bialka: {{product.protein}}</div>
-  <div>Nazwa posilku: {{mealName}}</div>
+  <div>Nazwa posilku: {{this.meal.getMealName()}}</div>
   <div>Liczba kcal (suma): {{mealKcal}}</div>
   <div>Liczba protein (suma): {{mealProtein}}</div>
   <div>Liczba protein (suma): {{mealFat}}</div>
   <div>Liczba carbo (suma): {{mealCarbo}}</div>
   <div>Dodane produkty</div>
-  <div *ngFor="let product of addedProducts">Nazwa produktu: {{product.data.name}} 
-    Liczba kalorii: {{product.data.kcal * product.weight * 0.01}} 
-    Liczba bialka: {{product.data.protein*product.weight * 0.01}}
-    Liczba tluszczu: {{product.data.fat * product.weight * 0.01}}
-    Liczba carbo: {{product.data.carbo * product.weight * 0.01}}
+  <div *ngFor="let product of this.meal.productList">Nazwa produktu: {{product.data.name}} 
+   Liczba kalorii: {{product.getKcal()}} 
+    Liczba bialka: {{product.getProtein()}}
+    Liczba tluszczu: {{product.getFat()}}
+    Liczba carbo: {{product.getCarbo()}}  
     </div>
 </ion-content>

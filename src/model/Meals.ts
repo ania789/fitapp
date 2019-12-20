@@ -24,6 +24,19 @@ export class UserProduct {
         this.weight = weight;
     }
 
+    getKcal(): number {
+        return this.data.kcal * this.weight * 0.01;
+    }
+    getProtein(): number {
+        return this.data.protein * this.weight * 0.01;
+    }
+    getFat(): number {
+        return this.data.fat * this.weight * 0.01;
+    }
+    getCarbo(): number {
+        return this.data.carbo * this.weight * 0.01;
+    }
+
 
 }
 
@@ -50,14 +63,17 @@ export class MealClass extends Meals {
 
     addProduct(weight: number) {
         const Sugar: ProductData = new ProductData ('1', 'sugar', 89, 1, 0.5, 321.8);
-        const product: UserProduct  = new UserProduct(Sugar, 100);
+        // const product: UserProduct  = new UserProduct(Sugar, 100);
         // tslint:disable-next-line:forin
 
         const Chocolate: ProductData = new ProductData ('1', 'chocolate', 100, 1.2, 1.1, 121.8);
         const Banana: ProductData = new ProductData ('1', 'banana', 120, 1, 9.1, 221.8);
-        this.productList.push({data: Sugar, weight});
-        this.productList.push({data: Chocolate, weight});
-        this.productList.push({data: Banana, weight});
+        const objectSugar: UserProduct = new UserProduct(Sugar, weight);
+        const objectChocolate: UserProduct = new UserProduct(Chocolate, weight);
+        const objectBanana: UserProduct = new UserProduct(Banana, weight);
+        this.productList.push(objectChocolate);
+        this.productList.push(objectSugar);
+        this.productList.push(objectBanana);
     }
 
 

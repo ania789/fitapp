@@ -26,13 +26,13 @@ export class HomePage {
   addedProductProtein: number;
   addedProductFat: number;
   addedProductCarbo: number;
+  nutrientType: NutrientType;
 
   constructor() {
     this.meal = new MealClass();
     this.meal.mealType = MealType.BREAKFAST;
-    this.mealName = this.meal.getMealName();
     this.meal.addProduct(100);
-    this.addedProducts = this.meal.productList;
+    console.log(this.addedProducts);
     // this.addedProductName = this.meal.getNameOfAddedProduct(this.product);
     // this.addedProductKcal = this.meal.getInfoAboutAddedProduct(NutrientType.KCAL, this.product);
     // this.addedProductProtein = this.meal.getInfoAboutAddedProduct(NutrientType.PROTEIN, this.product);
