@@ -1,7 +1,7 @@
 import {ProductData } from './Product';
 import { ThrowStmt } from '@angular/compiler';
 
-export enum MealType {BREAKFAST, LUNCH, DINNER, SUPPER}
+export enum MealType {BREAKFAST = 'breakfast', LUNCH = 'lunch', DINNER= 'dinner', SUPPER= 'supper'}
 
 export enum NutrientType { KCAL= 'kcal', PROTEIN = 'protein', FAT = 'fat', CARBO =  'carbo'}
 
@@ -61,19 +61,32 @@ export class MealClass extends Meals {
         }
     }
 
-    addProduct(weight: number) {
-        const Sugar: ProductData = new ProductData ('1', 'sugar', 89, 1, 0.5, 321.8);
-        // const product: UserProduct  = new UserProduct(Sugar, 100);
-        // tslint:disable-next-line:forin
+    setMealType(mealType: string): MealType {
+        switch (mealType) {
+            case mealType = 'breakfast':
+                return MealType.BREAKFAST;
+            case mealType = 'lunch':
+                return MealType.LUNCH;
+            case mealType = 'dinner':
+                return MealType.DINNER;
+            case mealType = 'supper':
+                return MealType.SUPPER;
+        }
+    }
 
-        const Chocolate: ProductData = new ProductData ('1', 'chocolate', 100, 1.2, 1.1, 121.8);
-        const Banana: ProductData = new ProductData ('1', 'banana', 120, 1, 9.1, 221.8);
-        const objectSugar: UserProduct = new UserProduct(Sugar, weight);
-        const objectChocolate: UserProduct = new UserProduct(Chocolate, weight);
-        const objectBanana: UserProduct = new UserProduct(Banana, weight);
-        this.productList.push(objectChocolate);
-        this.productList.push(objectSugar);
-        this.productList.push(objectBanana);
+    addProduct(product: ProductData, weight: number) {
+        // const Sugar: ProductData = new ProductData ('1', 'sugar', 89, 1, 0.5, 321.8);
+        // // const product: UserProduct  = new UserProduct(Sugar, 100);
+        // // tslint:disable-next-line:forin
+
+        // const Chocolate: ProductData = new ProductData ('1', 'chocolate', 100, 1.2, 1.1, 121.8);
+        // const Banana: ProductData = new ProductData ('1', 'banana', 120, 1, 9.1, 221.8);
+        // const objectSugar: UserProduct = new UserProduct(Sugar, weight);
+        // const objectChocolate: UserProduct = new UserProduct(Chocolate, weight);
+        // const objectBanana: UserProduct = new UserProduct(Banana, weight);
+        const addedProduct = new UserProduct(product, weight);
+        this.productList.push(addedProduct);
+        console.log(this.productList);
     }
 
 

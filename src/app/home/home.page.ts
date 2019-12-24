@@ -3,6 +3,7 @@ import { Meals, MealType, MealClass, NutrientType, UserProduct } from 'src/model
 import { Product, ProductData } from 'src/model/Product';
 
 
+
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -27,12 +28,16 @@ export class HomePage {
   addedProductFat: number;
   addedProductCarbo: number;
   nutrientType: NutrientType;
+  selectedProduct: ProductData;
+  objProduct: any;
+  mealType: typeof MealType;
+  seletedMeal: string;
 
   constructor() {
     this.meal = new MealClass();
-    this.meal.mealType = MealType.BREAKFAST;
-    this.meal.addProduct(100);
-    console.log(this.addedProducts);
+    this.mealType = MealType;
+    //this.meal.mealType = MealType.BREAKFAST;
+    // console.log(this.addedProducts);
     // this.addedProductName = this.meal.getNameOfAddedProduct(this.product);
     // this.addedProductKcal = this.meal.getInfoAboutAddedProduct(NutrientType.KCAL, this.product);
     // this.addedProductProtein = this.meal.getInfoAboutAddedProduct(NutrientType.PROTEIN, this.product);
@@ -53,7 +58,21 @@ export class HomePage {
     const product2 = ProductData.getTestProduct(2);
     const product3 = ProductData.getTestProduct(3);
     this.allProducts = [product1, product2, product3];
+    console.log(this.allProducts);
 
   }
+
+
+  onClick(event, product: ProductData) {
+   console.log(this.selectedProduct);
+   product = this.selectedProduct;
+   this.meal.addProduct(product, 100);
+  }
+
+  setMeal(event, meal: string) {
+    this.meal.mealType = this.meal.setMealType(this.seletedMeal);
+  }
+
+
 
 }

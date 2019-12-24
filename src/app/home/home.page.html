@@ -7,18 +7,68 @@
 </ion-header>
 
 <ion-content>
-  <div>Wszystkie produkty, ktore mozna dodac</div>
+  <div>
+    <ul class="list">
+      <select class="item" [(ngModel)]="seletedMeal">
+        <option >{{this.mealType.BREAKFAST}}</option >
+        <option >{{this.mealType.LUNCH}}</option>
+        <option >{{this.mealType.DINNER}}</option>
+        <option >{{this.mealType.SUPPER}}</option>
+      </select>
+      <button ion-button round (click)="setMeal($event, meal)">Select meal</button>
+    </ul>
+  </div>
+
+  <div>{{this.meal.mealType}}</div>
+  
+  <div style="width:100%">
+    <div style="width: 49%; display: inline-block;">
+      <ul class="list">
+        <select class="item" [(ngModel)]="selectedProduct">
+          <option *ngFor="let product of allProducts" [ngValue]="product">{{product.name}} </option>
+        </select>
+        <button  [disabled] = "!seletedMeal || !selectedProduct" ion-button round (click)="onClick($event, product)">Add</button>
+      </ul>
+    </div>
+
+    
+
+    <!-- <div>Select meal:</div>
+    <ul class="list">
+      <select class="item" >
+        <option *ngFor="let enum of fileVals()" >{{ enum}} </option>
+      </select>
+      <button ion-button round (click)="onClick($event, product)">Add</button>
+    </ul>
+  </div> -->
+    <!-- <div>Wszystkie produkty, ktore mozna dodac</div>
   <div *ngFor="let product of allProducts">Nazwa produktu: {{product.name}} Liczba kalorii: {{product.kcal}} Liczba tluszczu: {{product.fat}} Liczba bialka: {{product.protein}}</div>
   <div>Nazwa posilku: {{this.meal.getMealName()}}</div>
   <div>Liczba kcal (suma): {{mealKcal}}</div>
   <div>Liczba protein (suma): {{mealProtein}}</div>
   <div>Liczba protein (suma): {{mealFat}}</div>
-  <div>Liczba carbo (suma): {{mealCarbo}}</div>
-  <div>Dodane produkty</div>
-  <div *ngFor="let product of this.meal.productList">Nazwa produktu: {{product.data.name}} 
-   Liczba kalorii: {{product.getKcal()}} 
-    Liczba bialka: {{product.getProtein()}}
-    Liczba tluszczu: {{product.getFat()}}
-    Liczba carbo: {{product.getCarbo()}}  
+  <div>Liczba carbo (suma): {{mealCarbo}}</div> -->
+    <div style="width: 49%; float: right">
+      <div>Dodane produkty</div>
+      <div *ngFor="let product of this.meal.productList">
+        <div>Name: {{product.data.name}} </div>
+        <div>Kcal: {{product.getKcal()}}</div>
+        <div>Protein: {{product.getProtein()}}</div>
+        <div>Fat: {{product.getFat()}}</div>
+        <div>Carbo: {{product.getCarbo()}} </div>
+
+      </div>
     </div>
+
+
+    <div style="width: 49%; display: inline-block;">
+      <div>Sum of:</div>
+      <div>Liczba kcal (suma): {{mealKcal}}</div>
+      <div>Liczba protein (suma): {{mealProtein}}</div>
+      <div>Liczba protein (suma): {{mealFat}}</div>
+      <div>Liczba carbo (suma): {{mealCarbo}}</div>
+
+    </div>
+  </div>
+
 </ion-content>
