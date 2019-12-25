@@ -140,6 +140,12 @@ export class MealClass extends Meals {
         }
     }
 
+    deleteProductIndex(index: number) {
+        // tslint:disable-next-line:forin
+        // tslint:disable-next-line:no-var-keyword
+       this.productList.splice(index, 1);
+    }
+
 
 
 

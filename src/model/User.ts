@@ -1,10 +1,10 @@
-enum reasonValue {lose = 'lose weight', stay = 'don t have to lose', get = 'get weight'}
+enum reasonValue {lose = 2, stay = 1, get = 0}
 
 export class UserData {
     uid: string;
     age: number;
     sex: string;
-    userPurpose: string;
+    userPurpose: number;
     level: number;
     weight: number;
     height: number;
@@ -12,7 +12,7 @@ export class UserData {
     ppm: number;
     cpm: number;
 
-    constructor(uid: string, age: number, sex: string, userPurpose: string,  weight: number, height: number , level: number) {
+    constructor(uid: string, age: number, sex: string, userPurpose: number,  weight: number, height: number , level: number) {
         this.uid = uid;
         this.age = age;
         this.sex = sex;
@@ -22,6 +22,7 @@ export class UserData {
         this.level = level;
         this.bmi = this.getBmiValue();
         this.ppm = this.getPPmValue();
+        this.cpm = this.getCpmValue();
     }
 
  // weight: number, height: number
@@ -43,15 +44,25 @@ export class UserData {
     }
 
 
-    getReason(): reasonValue {
+    getReason(): number {
         if (this.bmi < 18.5) {
-            return reasonValue.get;
+            return 2;
         } else if (this.bmi < 24.9 && this.bmi > 18.5) {
-            return reasonValue.stay;
+            return 1;
         } else if (this.bmi > 24.5) {
-            return reasonValue.lose;
+            return 0;
         }
 
+    }
+
+    castNubmerToStringReson(reason: number): string {
+        if (reason === 0 ) {
+             return 'lose weight';
+        } else if (reason === 1) {
+            return 'maintanace weight';
+        } else {
+            return 'get weight';
+        }
     }
 
 

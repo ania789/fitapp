@@ -5,9 +5,86 @@
 </ion-header>
 
 <ion-content>
-<div>User purpose: {{this.user.userPurpose}}</div>
-<div>bmi: {{this.user.getBmiValue()}}</div>
-<div>ppm: {{this.user.getPPmValue()}}</div>
-<div>cpm: {{this.user.getCpmValue()}}</div>
-<div>reason: {{this.user.getReason()}}</div>
+  <div style="width: 100%; display: inline-block;">
+    <ion-list>
+
+      <ion-item>
+        <ion-label floating>Age</ion-label>
+        <ion-input  type="number" [(ngModel)] = "age" ></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating>Height</ion-label>
+        <ion-input type="number"  [(ngModel)] = "height" ></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating>Weight</ion-label>
+        <ion-input  type="number"  [(ngModel)] = "weight" ></ion-input>
+      </ion-item>
+
+
+    </ion-list>
+
+    <ion-list>
+      <ion-radio-group  [(ngModel)] = "sex"  type="text">
+        <ion-list-header>
+          <ion-label>Sex</ion-label>
+        </ion-list-header>
+
+        <ion-item>
+          <ion-label>Woman</ion-label>
+          <ion-radio slot="start" value="W" checked></ion-radio>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>Man</ion-label>
+          <ion-radio slot="start" value="M"></ion-radio>
+        </ion-item>
+      </ion-radio-group>
+    </ion-list>
+
+    
+    <ion-label>What is your purpose?</ion-label>
+    <ion-select  [(ngModel)] = "purpose"  interface="action-sheet" placeholder="Select One" type="number">
+      <ion-select-option value=0>Lose Weight</ion-select-option>
+      <ion-select-option value=2>More weight</ion-select-option>
+      <ion-select-option value=1>Weight maintenance</ion-select-option>
+    </ion-select>
+
+
+
+    <ion-label>Activity</ion-label>
+    <ion-select   [(ngModel)] = "activity"  interface="action-sheet" placeholder="Select One" type="number">
+      <ion-select-option value="1.4">Low activity -> 3 workouts per week(less than 30 min) or sitting work without low
+        activity</ion-select-option>
+      <ion-select-option value="1.6"> 3 workouts per week - 60 min include 20 min strength exercises
+      </ion-select-option>
+      <ion-select-option value="1.75">3 workouts per week - 60 min include 45 min strength exercises</ion-select-option>
+      <ion-select-option value="2.0">5 workouts per week - 60 min include 45 min strength exercises or hard work with
+        sitting work</ion-select-option>
+      <ion-select-option value="2.2">7 workouts per week - 60 min include 45 min strength exercises or hard work
+      </ion-select-option>
+      <ion-select-option value="2.4">worout every day - 60 min include 20 min strength exercises or professional workout
+      </ion-select-option>
+    </ion-select>
+  
+
+  </div>
+
+    <button
+      interface="action-sheet"
+      mat-raised-button
+      color="primary"
+      type="submit"
+      style="margin: 10px auto; width: 20%;"
+      (click)="presentAlertRadio()"
+    >
+      SAVE
+    </button>
+  <!-- <div>User purpose: {{this.user.userPurpose}}</div> -->
+  <!-- <div>bmi: {{this.user.getBmiValue()}}</div>
+  <div>ppm: {{this.user.getPPmValue()}}</div>
+  <div>cpm: {{this.user.getCpmValue()}}</div>
+  <div>reason: {{this.user.getReason()}}</div> -->
 </ion-content>

@@ -1,6 +1,7 @@
 import { Component, Injectable } from '@angular/core';
 import { Meals, MealType, MealClass, NutrientType, UserProduct } from 'src/model/Meals';
 import { Product, ProductData } from 'src/model/Product';
+import { AlertController } from '@ionic/angular';
 
 
 
@@ -32,11 +33,13 @@ export class HomePage {
   objProduct: any;
   mealType: typeof MealType;
   seletedMeal: string;
+  numberOfGrams: number;
+  productToDelete: ProductData;
 
-  constructor() {
+  constructor(public alertController: AlertController) {
     this.meal = new MealClass();
     this.mealType = MealType;
-    //this.meal.mealType = MealType.BREAKFAST;
+    // this.meal.mealType = MealType.BREAKFAST;
     // console.log(this.addedProducts);
     // this.addedProductName = this.meal.getNameOfAddedProduct(this.product);
     // this.addedProductKcal = this.meal.getInfoAboutAddedProduct(NutrientType.KCAL, this.product);
@@ -64,13 +67,50 @@ export class HomePage {
 
 
   onClick(event, product: ProductData) {
-   console.log(this.selectedProduct);
-   product = this.selectedProduct;
-   this.meal.addProduct(product, 100);
+    console.log(this.selectedProduct);
+    product = this.selectedProduct;
+    this.meal.addProduct(product, 100);
   }
 
   setMeal(event, meal: string) {
     this.meal.mealType = this.meal.setMealType(this.seletedMeal);
+  }
+
+
+  async presentAlertConfirm() {
+    const alert = await this.alertController.create({
+      header: 'Grams',
+      inputs: [
+        {
+          name: 'gram',
+          type: 'number',
+          placeholder: 'gram'
+        }
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+            console.log('Confirm Cancel');
+          }
+        }, {
+          text: 'Ok',
+          handler: (alertData) => {
+            this.numberOfGrams = alertData.gram;
+            this.meal.addProduct(this.selectedProduct, this.numberOfGrams);
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+  deleteProduct(event, index: number) {
+    console.log(index);
+    this.meal.deleteProductIndex(index);
   }
 
 

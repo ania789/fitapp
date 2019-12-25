@@ -27,11 +27,11 @@
         <select class="item" [(ngModel)]="selectedProduct">
           <option *ngFor="let product of allProducts" [ngValue]="product">{{product.name}} </option>
         </select>
-        <button  [disabled] = "!seletedMeal || !selectedProduct" ion-button round (click)="onClick($event, product)">Add</button>
+        <button  [disabled] = "!seletedMeal || !selectedProduct" ion-button round (click)= "presentAlertConfirm()" >Add</button>
       </ul>
     </div>
 
-    
+    <!--(click)="onClick($event, product)"-->
 
     <!-- <div>Select meal:</div>
     <ul class="list">
@@ -50,13 +50,14 @@
   <div>Liczba carbo (suma): {{mealCarbo}}</div> -->
     <div style="width: 49%; float: right">
       <div>Dodane produkty</div>
-      <div *ngFor="let product of this.meal.productList">
+      <div *ngFor="let product of this.meal.productList; let i = index" >
         <div>Name: {{product.data.name}} </div>
+        <div>Grams: {{product.weight}}</div>
         <div>Kcal: {{product.getKcal()}}</div>
         <div>Protein: {{product.getProtein()}}</div>
         <div>Fat: {{product.getFat()}}</div>
         <div>Carbo: {{product.getCarbo()}} </div>
-
+        <button (click)="deleteProduct($event,i)">Delete product</button>
       </div>
     </div>
 
