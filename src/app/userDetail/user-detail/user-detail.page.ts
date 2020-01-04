@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { UserData } from 'src/model/User';
+import { UserData } from 'src/model/UserDetail';
 import { FormGroup, FormArray, FormBuilder,
   Validators, ReactiveFormsModule  } from '@angular/forms';
 import { AlertController } from '@ionic/angular';
+import { Firebase } from 'src/model/Firebase';
 @Component({
   selector: 'app-user-detail',
   templateUrl: './user-detail.page.html',
@@ -19,21 +20,22 @@ export class UserDetailPage {
   purpose: number;
   activity: number;
   AppReson: number;
+  firebase: Firebase;
 
 
 
   constructor(public alertCtrl: AlertController ) {
-   // this.user = new UserData('1', this.age, 'W', 'lose weight', 100 , 150, 2);
-   //  console.log(this.user.age);
+      this.firebase = new Firebase();
    }
 
 
 
     async presentAlertRadio() {
-      this.user = new UserData('1', this.age, this.sex, Number(this.purpose), this.weight, this.height, this.activity);
-      console.log(this.user);
+      // tslint:disable-next-line:max-line-length
+      this.user = new UserData(localStorage.getItem('uid'), this.age, this.sex, Number(this.purpose), this.weight, this.height, this.activity);
 
-      if(this.user.getReason() !== Number(this.purpose)){
+
+      if (this.user.getReason() !== Number(this.purpose)) {
       const alert = await this.alertCtrl.create({
         header: 'What you choose?',
         inputs: [
@@ -47,17 +49,17 @@ export class UserDetailPage {
           //   label: this.user.castNubmerToStringReson(this.purpose)
           // },
           {
-            name: 'radio1',
+            name: 'purpose',
             type: 'radio',
             label: this.user.castNubmerToStringReson(this.user.getReason()),
-            value: 'value1',
+            value: this.user.getReason(),
             checked: true
           },
           {
-            name: 'radio2',
+            name: 'userPurpose',
             type: 'radio',
             label: this.user.castNubmerToStringReson(Number(this.purpose)),
-            value: 'value2'
+            value: this.purpose
           },
         ],
         buttons: [
@@ -66,25 +68,19 @@ export class UserDetailPage {
             role: 'cancel',
             cssClass: 'secondary',
             handler: () => {
-              console.log('Confirm Cancel');
             }
           }, {
             text: 'Ok',
-            handler: () => {
-              console.log('Confirm Ok');
+            handler: (alertData) => {
+              // tslint:disable-next-line:max-line-length
+              this.user = new UserData(localStorage.getItem('uid'), this.age, this.sex, alertData, this.weight, this.height, this.activity);
+              this.firebase.saveInfoAboutUser(this.user);
             }
           }
         ]
       });
-
       await alert.present();
-    }
   }
 
 }
-
-
-
-
-
-
+}

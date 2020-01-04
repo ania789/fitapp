@@ -6,6 +6,8 @@ export const environment = {
   production: false
 };
 
+export enum MealType {BREAKFAST = 'breakfast', LUNCH = 'lunch', DINNER= 'dinner', SUPPER= 'supper'}
+
 /*
  * For easier debugging in development mode, you can import the following file
  * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.
