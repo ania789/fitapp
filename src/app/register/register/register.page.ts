@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { Firebase } from 'src/model/Firebase';
 
 @Component({
   selector: 'app-register',
@@ -11,12 +12,13 @@ export class RegisterPage {
 
   email: string;
   password: string;
+  firebase = new Firebase();
 
   constructor(private authService: AuthService) { }
 
   signup() {
     this.authService.signup(this.email, this.password);
+  }
 
-}
 
 }

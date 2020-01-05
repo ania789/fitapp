@@ -20,9 +20,6 @@ export class UserData {
         this.weight = weight;
         this.height = height;
         this.level = level;
-        this.bmi = this.getBmiValue();
-        this.ppm = this.getPPmValue();
-        this.cpm = this.getCpmValue();
     }
 
  // weight: number, height: number
@@ -44,12 +41,12 @@ export class UserData {
     }
 
 
-    getReason(): number {
-        if (this.bmi < 18.5) {
+    getReason(bmi: number): number {
+        if (bmi < 18.5) {
             return 2;
-        } else if (this.bmi < 24.9 && this.bmi > 18.5) {
+        } else if (bmi < 24.9 && bmi > 18.5) {
             return 1;
-        } else if (this.bmi > 24.5) {
+        } else if (bmi > 24.5) {
             return 0;
         }
 

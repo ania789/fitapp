@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { UserData } from 'src/model/UserDetail';
-import { FormGroup, FormArray, FormBuilder,
-  Validators, ReactiveFormsModule  } from '@angular/forms';
-import { AlertController } from '@ionic/angular';
+import {
+  FormGroup, FormArray, FormBuilder,
+  Validators, ReactiveFormsModule
+} from '@angular/forms';
+import { AlertController, ToastController } from '@ionic/angular';
 import { Firebase } from 'src/model/Firebase';
 @Component({
   selector: 'app-user-detail',
@@ -24,35 +26,30 @@ export class UserDetailPage {
 
 
 
-  constructor(public alertCtrl: AlertController ) {
-      this.firebase = new Firebase();
-   }
+  constructor(public alertCtrl: AlertController, private toastCtrl: ToastController) {
+    this.firebase = new Firebase();
+  }
 
 
 
-    async presentAlertRadio() {
-      // tslint:disable-next-line:max-line-length
-      this.user = new UserData(localStorage.getItem('uid'), this.age, this.sex, Number(this.purpose), this.weight, this.height, this.activity);
+  async presentAlertRadio() {
+    // tslint:disable-next-line:max-line-length
+    this.user = new UserData(localStorage.getItem('uid'), this.age, this.sex, Number(this.purpose), this.weight, this.height, this.activity);
 
+    console.log(this.user.getReason(this.user.getBmiValue()));
+    console.log(Number(this.purpose));
 
-      if (this.user.getReason() !== Number(this.purpose)) {
+    if (this.user.getReason(this.user.getBmiValue()) !== Number(this.purpose)) {
       const alert = await this.alertCtrl.create({
         header: 'What you choose?',
+        message: 'You have to choose one of the option, one is what you choose, second is what application count ',
+        cssClass: 'my-custom-alert',
         inputs: [
-          // {
-          //   name: 'radio1',
-          //   label:  this.user.castNubmerToStringReson(this.user.getReason()),
-          //   checked: true
-          // },
-          // {
-          //   name: 'radio2',
-          //   label: this.user.castNubmerToStringReson(this.purpose)
-          // },
           {
             name: 'purpose',
             type: 'radio',
-            label: this.user.castNubmerToStringReson(this.user.getReason()),
-            value: this.user.getReason(),
+            label: this.user.castNubmerToStringReson(this.user.getReason(this.user.getBmiValue())),
+            value: this.user.getReason(this.user.getBmiValue()),
             checked: true
           },
           {
@@ -72,15 +69,29 @@ export class UserDetailPage {
           }, {
             text: 'Ok',
             handler: (alertData) => {
-              // tslint:disable-next-line:max-line-length
-              this.user = new UserData(localStorage.getItem('uid'), this.age, this.sex, alertData, this.weight, this.height, this.activity);
-              this.firebase.saveInfoAboutUser(this.user);
+              this.saveUserDetail(alertData);
+              this.presentToast();
             }
           }
         ]
       });
       await alert.present();
+    } else {
+      this.presentToast();
+    }
+
   }
 
-}
+  async presentToast() {
+    const toast = await this.toastCtrl.create({
+      message: 'Your settings have been saved.',
+      duration: 2000
+    });
+    toast.present();
+  }
+  saveUserDetail(alertData: any) {
+    // tslint:disable-next-line:max-line-length
+    this.user = new UserData(localStorage.getItem('uid'), this.age, this.sex, alertData, this.weight, this.height, this.activity);
+    this.firebase.saveInfoAboutUser(this.user);
+  }
 }

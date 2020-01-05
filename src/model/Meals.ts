@@ -1,15 +1,15 @@
-import {ProductData } from './Product';
+import { ProductData } from './Product';
 import { ThrowStmt } from '@angular/compiler';
 import { User } from './User';
 
 export enum MealType {
-  BREAKFAST = 'breakfast',
-  LUNCH = 'lunch',
-  DINNER = 'dinner',
-  SUPPER = 'supper'
+    BREAKFAST = 'breakfast',
+    LUNCH = 'lunch',
+    DINNER = 'dinner',
+    SUPPER = 'supper'
 }
 
-export enum NutrientType { KCAL= 'kcal', PROTEIN = 'protein', FAT = 'fat', CARBO =  'carbo'}
+export enum NutrientType { KCAL = 'kcal', PROTEIN = 'protein', FAT = 'fat', CARBO = 'carbo' }
 
 export class Meals {
     mealType: MealType;
@@ -76,7 +76,13 @@ export class MealClass extends Meals {
     }
 
     addProduct(userProduct: UserProduct) {
-        this.productList.push(userProduct);
+       const index = this.productList.findIndex(it => it.data.id === userProduct.data.id);
+       if (index === -1) {
+            this.productList.push(userProduct);
+       } else {
+        this.productList[index] = userProduct;
+       }
+        // this.productList.push(userProduct);
     }
 
 
@@ -96,7 +102,7 @@ export class MealClass extends Meals {
         const propertyName = property;
         const sumOfNutrientType = this.productList.reduce((sum, currentValue) => {
             return Math.round(sum + (currentValue.data[propertyName] * this.convertWeight(currentValue.weight)));
-          }, 0);
+        }, 0);
         return sumOfNutrientType;
 
 
@@ -104,7 +110,7 @@ export class MealClass extends Meals {
 
     getNameFromAddedProduct(): Array<string> {
         const propertyName = 'name';
-        const result = this.productList.map(a  => a.data.name);
+        const result = this.productList.map(a => a.data.name);
         console.log(result);
         return result;
     }
@@ -117,14 +123,14 @@ export class MealClass extends Meals {
         // tslint:disable-next-line:forin
         // tslint:disable-next-line:no-var-keyword
         for (var i = 0; i < this.productList.length; i++) {
-             if ( this.productList[i].data.name === nameOfdeleteProduct) {
+            if (this.productList[i].data.name === nameOfdeleteProduct) {
                 this.productList.splice(i, 1);
             }
         }
     }
 
     deleteProductIndex(index: number) {
-       this.productList.splice(index, 1);
+        this.productList.splice(index, 1);
     }
 
 

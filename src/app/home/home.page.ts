@@ -3,6 +3,7 @@ import { Meals, MealType, MealClass, NutrientType, UserProduct } from 'src/model
 import { Product, ProductData } from 'src/model/Product';
 import { AlertController } from '@ionic/angular';
 import { Firebase } from 'src/model/Firebase';
+import { MatSnackBar } from '@angular/material';
 
 
 
@@ -40,7 +41,7 @@ export class HomePage {
   products: Array<any>;
   firebase: Firebase = new Firebase();
 
-  constructor(public alertController: AlertController) {
+  constructor(public alertController: AlertController, private snackBar: MatSnackBar) {
     this.meal = new MealClass();
     this.allProducts = this.firebase.getProducts();
     this.mealType = MealType;
@@ -52,6 +53,7 @@ export class HomePage {
     // this.firebase.getArrayFromDb('breakfast').then(data => {
     //   this.products = data;
     // });
+
     this.refreshTotals();
   }
 
@@ -93,24 +95,20 @@ export class HomePage {
   addProduct(selectedProduct: ProductData, numberOfGrams: number, selectedMeal: string) {
     const addedProduct = new UserProduct(selectedProduct, numberOfGrams);
     this.meals[selectedMeal].addProduct(addedProduct);
-    // this.firebase.saveAddedProducts(addedProduct, selectedMeal);
+    this.firebase.saveAddedProducts(addedProduct, selectedMeal);
     this.refreshTotals();
-    console.log(this.meals[this.mealType.BREAKFAST].productList);
-    console.log(this.meals[this.mealType.LUNCH].productList);
   }
 
 
 
   deleteProduct(meal: string, productID: number) {
-    // this.firebase.deleteProductFromDb(, this.seletedMeal);
-      // this.meals[this.seletedMeal].deleteProductIndex(index);
-    // this.meal.deleteProductIndex(index);
     // tslint:disable-next-line:forin
     this.meals[meal].productList.forEach(element => {
       if (element.data.id === productID ) {
         this.meals[meal].deleteProduct(element.data.name);
+        this.firebase.deleteProductFromDb(element, meal);
       }
-      console.log(element);
+
     });
     this.refreshTotals();
   }

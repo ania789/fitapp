@@ -24,3 +24,26 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+$alert-ios-content-max-height:700px !default;
+$alert-md-content-max-height:400px !default;
+
+.my-custom-alert .alert-wrapper{
+    min-width: 450px !important;
+}
+
+.ion-select{
+  
+width: 100% !important;
+max-width: 100% !important;
+}
+
+.alert-tappable.alert-radio {
+    height: auto;
+    contain: content;
+}
+
+.alert-radio-label.sc-ion-alert-md,
+.alert-radio-label.sc-ion-alert-ios {
+    white-space: normal;
+}

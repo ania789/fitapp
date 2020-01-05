@@ -4,9 +4,11 @@ import { Product } from './Product';
 import { UserData } from './UserDetail';
 import { Observable } from 'rxjs';
 import { UserProduct, MealType } from './Meals';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material';
 
 export class Firebase {
 
+    snackBar: MatSnackBar;
     db = firebase.firestore();
     getProducts(): Array<Product> {
         const productArr: Array<Product> = [];
@@ -39,35 +41,66 @@ export class Firebase {
             });
     }
 
-    saveAddedProducts(userProduct: UserProduct, mealType: string) {
-        this.db.collection('UserProduct').add({
-            meal: mealType,
-            products: firebase.firestore.FieldValue.arrayUnion({ id: userProduct.data.id, weight: userProduct.weight }),
-            uid: localStorage.getItem('uid')
-        })
-            .then(snapshot => {
-                console.log(snapshot);
+    createDocumentAfterRegister() {
+        this.db.collection('UserProduct')
+        .where('uid', '==', localStorage.getItem('uid'))
+        .where('meal', '==', 'breakfast').get().then(shot => {
+            console.log(shot);
+        });
+        // tslint:disable-next-line:forin
+        for (const meal in MealType) {
+            this.db.collection('UserProduct').add({
+                meal: meal.toLocaleLowerCase(),
+                products: [],
+                uid: localStorage.getItem('uid')
             })
-            .catch(err => {
-                console.error('Error writing document: ', err);
-            });
-
+                .then(snapshot => {
+                    console.log(snapshot);
+                })
+                .catch(err => {
+                    console.error('Error writing document: ', err);
+                });
+        }
     }
 
-    deleteProductFromDb(id: string, mealType: string) {
-        this.db.collection('UserProduct').doc(mealType).update({
-            meal: mealType,
-            products: firebase.firestore.FieldValue.arrayRemove({id}),
-            uid: localStorage.getItem('uid')
-        })
-            .then(snapshot => {
-                console.log(snapshot);
-            })
-            .catch(err => {
-                console.error('Error writing document: ', err);
+    saveAddedProducts(userProduct: UserProduct, mealType: string) {
+        this.db.collection('UserProduct')
+            .where('uid', '==', localStorage.getItem('uid'))
+            .where('meal', '==', mealType)
+            .get()
+            .then(querySnapshot => {
+                querySnapshot.forEach(doc => {
+                    doc.data().products.forEach(element => {
+                        if (element.id === userProduct.data.id) {
+                            this.db.collection('UserProduct').doc(doc.id).update({
+                                products: firebase.firestore.FieldValue.arrayRemove({ id: element.id, weight: element.weight })
+                            });
+                            this.db.collection('UserProduct').doc(doc.id).update({
+                                products: firebase.firestore.FieldValue.arrayUnion({ id: userProduct.data.id, weight: userProduct.weight })
+                            });
+                        } else {
+                            this.db.collection('UserProduct').doc(doc.id).update({
+                                products: firebase.firestore.FieldValue.arrayUnion({ id: userProduct.data.id, weight: userProduct.weight })
+                            });
+                        }
+                    });
+                });
             });
+    }
 
-        console.log(firebase.firestore.FieldValue.arrayRemove(id));
+    deleteProductFromDb(userProduct: UserProduct, mealType: string) {
+        this.db.collection('UserProduct')
+            .where('uid', '==', localStorage.getItem('uid'))
+            .where('meal', '==', mealType)
+            .get()
+            .then(querySnapshot => {
+                querySnapshot.forEach(doc => {
+                    this.db.collection('UserProduct').doc(doc.id).update({
+                        products: firebase.firestore.FieldValue.arrayRemove({ id: userProduct.data.id, weight: userProduct.weight })
+                    });
+                });
+
+            });
 
     }
 
@@ -116,7 +149,7 @@ export class Firebase {
         return productArr;
     }
 
-     mergeArrays(arr1, arr2) {
+    mergeArrays(arr1, arr2) {
         console.log(arr1);
         console.log(arr2);
         // const mergeArray: Array<any> = [];

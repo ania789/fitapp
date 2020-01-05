@@ -1,17 +1,14 @@
-.myCustomSelect{
-    max-width: 100% !important;
-}
 
-.alert-wrapper {
+
+ .alert-wrapper{
+    max-width: unset !important;
     width: 100% !important;
+}
+
+.wider-popover .popover-content {
+    width: 100%; //or w/e width
+ }
+
+ .myCustomSelect{
     max-width: 100% !important;
-}
-
-ion-select.activity{
-    width: 100%;
-    max-width: 100%;
-  }
-
-ion-label{
-    white-space:normal !important;
-}
+   }

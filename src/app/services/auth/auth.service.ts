@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { User } from 'firebase';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { MatSnackBar } from '@angular/material';
+import { Firebase } from 'src/model/Firebase';
 
 @Injectable({
   providedIn: 'root'
@@ -9,6 +10,7 @@ import { MatSnackBar } from '@angular/material';
 export class AuthService {
 
   user: User;
+  firebase = new Firebase();
   constructor(
     public angularFireAuth: AngularFireAuth,
     private snackBar: MatSnackBar,
@@ -28,6 +30,7 @@ export class AuthService {
       .createUserWithEmailAndPassword(email, password)
       .then(res => {
         localStorage.setItem('uid', res.user.uid);
+        this.firebase.createDocumentAfterRegister();
         this.snackBar.open('Account successfully created!', 'OK', {
           duration: 3000
         });
