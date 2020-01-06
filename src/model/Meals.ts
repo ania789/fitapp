@@ -1,6 +1,7 @@
-import { ProductData } from './Product';
+import { ProductData, Product } from './Product';
 import { ThrowStmt } from '@angular/compiler';
 import { User } from './User';
+import { ContentObserver } from '@angular/cdk/observers';
 
 export enum MealType {
     BREAKFAST = 'breakfast',
@@ -133,7 +134,23 @@ export class MealClass extends Meals {
         this.productList.splice(index, 1);
     }
 
-
+    // tslint:disable-next-line:ban-types
+    mergeArrayFromDb(addedProductsDb: Array<{id: string, weight: number}>, allProducts: Array<ProductData>) {
+        const productList: Array<UserProduct> = [];
+        addedProductsDb.forEach(element => {
+            console.log(element.id);
+            console.log(element);
+            console.log(allProducts[element.id]);
+            console.log(allProducts);
+            allProducts.forEach(allProd => {
+                if (allProd.id === element.id) {
+                    const productToAdd: UserProduct = new UserProduct(allProd, element.weight);
+                    productList.push(productToAdd);
+                    console.log(productList);
+                }
+            });
+        });
+    }
 
 
 

@@ -38,7 +38,7 @@ export class HomePage {
   seletedMeal: string;
   numberOfGrams: number;
   productToDelete: ProductData;
-  products: Array<any>;
+  products: Array<{id: string, weight: number}>;
   firebase: Firebase = new Firebase();
 
   constructor(public alertController: AlertController, private snackBar: MatSnackBar) {
@@ -53,7 +53,17 @@ export class HomePage {
     // this.firebase.getArrayFromDb('breakfast').then(data => {
     //   this.products = data;
     // });
-
+    // tslint:disable-next-line:forin
+    for (const mealIterator in MealType) {
+      console.log(mealIterator);
+      this.firebase.arrayWithAddedProductFromDb(mealIterator.toLowerCase()).then(data => {
+      this.meals[mealIterator].productList = data;
+      console.log(this.meals[mealIterator].productList);
+    });
+      // this.meals[this.mealType.BREAKFAST].mergeArrayFromDb(this.products, this.allProducts);
+    }
+    console.log(this.allProducts);
+    console.log(localStorage.getItem('uid'));
     this.refreshTotals();
   }
 

@@ -1,6 +1,6 @@
 import * as firebase from 'firebase';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore';
-import { Product } from './Product';
+import { Product, ProductData } from './Product';
 import { UserData } from './UserDetail';
 import { Observable } from 'rxjs';
 import { UserProduct, MealType } from './Meals';
@@ -42,11 +42,6 @@ export class Firebase {
     }
 
     createDocumentAfterRegister() {
-        this.db.collection('UserProduct')
-        .where('uid', '==', localStorage.getItem('uid'))
-        .where('meal', '==', 'breakfast').get().then(shot => {
-            console.log(shot);
-        });
         // tslint:disable-next-line:forin
         for (const meal in MealType) {
             this.db.collection('UserProduct').add({
@@ -70,21 +65,30 @@ export class Firebase {
             .get()
             .then(querySnapshot => {
                 querySnapshot.forEach(doc => {
-                    doc.data().products.forEach(element => {
-                        if (element.id === userProduct.data.id) {
-                            this.db.collection('UserProduct').doc(doc.id).update({
-                                products: firebase.firestore.FieldValue.arrayRemove({ id: element.id, weight: element.weight })
-                            });
-                            this.db.collection('UserProduct').doc(doc.id).update({
-                                products: firebase.firestore.FieldValue.arrayUnion({ id: userProduct.data.id, weight: userProduct.weight })
-                            });
-                        } else {
-                            this.db.collection('UserProduct').doc(doc.id).update({
-                                products: firebase.firestore.FieldValue.arrayUnion({ id: userProduct.data.id, weight: userProduct.weight })
-                            });
-                        }
-                    });
+                    if (doc.data().products.length === 0) {
+                        this.db.collection('UserProduct').doc(doc.id).update({
+                            products: firebase.firestore.FieldValue.arrayUnion({ id: userProduct.data.id, weight: userProduct.weight })
+                        });
+                    } else {
+                        doc.data().products.forEach(element => {
+                            if (element.id === userProduct.data.id) {
+                                this.db.collection('UserProduct').doc(doc.id).update({
+                                    products: firebase.firestore.FieldValue.arrayRemove({ id: element.id, weight: element.weight })
+                                });
+                                this.db.collection('UserProduct').doc(doc.id).update({
+                                });
+                                console.log('istnieje');
+                            } else {
+                                this.db.collection('UserProduct').doc(doc.id).update({
+                                    // tslint:disable-next-line:max-line-length
+                                    products: firebase.firestore.FieldValue.arrayUnion({ id: userProduct.data.id, weight: userProduct.weight })
+                                });
+                                console.log('nieitnieje');
+                            }
+                        });
+                    }
                 });
+
             });
     }
 
@@ -149,23 +153,23 @@ export class Firebase {
         return productArr;
     }
 
-    mergeArrays(arr1, arr2) {
-        console.log(arr1);
-        console.log(arr2);
-        // const mergeArray: Array<any> = [];
-        // let value;
-        // await arr1.array.forEach(element1 => {
-        //     arr2.array.forEach(element2 => {
-        //         if (element1.id === element2.id) {
-        //             value = {
-        //                 id: element2.id
-        //             };
-        //         }
-        //         mergeArray.push(value);
-        //     });
-        // });
-        // return mergeArray;
+    async arrayWithAddedProductFromDb(mealType: string): Promise<Array<{id: string, weight: number}>> {
+        // tslint:disable-next-line:prefer-const
+        let productList: Array<{id: string, weight: number}>;
+        await this.db.collection('UserProduct')
+        .where('uid', '==', localStorage.getItem('uid'))
+        .where('meal', '==', mealType)
+        .get()
+        .then(querySnapshot => {
+            querySnapshot.forEach(doc => {
+                console.log(doc.data().products);
+                productList = doc.data().products;
+            });
+        });
+        return productList;
+
     }
+
 
 
 

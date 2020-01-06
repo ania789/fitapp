@@ -3,6 +3,7 @@ import { User } from 'firebase';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { MatSnackBar } from '@angular/material';
 import { Firebase } from 'src/model/Firebase';
+import { ToastController } from '@ionic/angular';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,7 @@ export class AuthService {
   constructor(
     public angularFireAuth: AngularFireAuth,
     private snackBar: MatSnackBar,
+    private toastCtrl: ToastController
 
   ) {
     angularFireAuth.authState.subscribe(user => {
@@ -56,4 +58,5 @@ export class AuthService {
         });
       });
   }
+
 }
