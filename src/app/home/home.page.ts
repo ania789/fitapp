@@ -38,33 +38,25 @@ export class HomePage {
   seletedMeal: string;
   numberOfGrams: number;
   productToDelete: ProductData;
-  products: Array<{id: string, weight: number}>;
+  products: Array<{ id: string, weight: number }>;
   firebase: Firebase = new Firebase();
 
   constructor(public alertController: AlertController, private snackBar: MatSnackBar) {
     this.meal = new MealClass();
     this.allProducts = this.firebase.getProducts();
     this.mealType = MealType;
-    console.log(this.mealType.BREAKFAST);
-    this.meals[this.mealType.BREAKFAST] = new MealClass();
-    this.meals[this.mealType.LUNCH] = new MealClass();
-    this.meals[this.mealType.DINNER] = new MealClass();
-    this.meals[this.mealType.SUPPER] = new MealClass();
-    // this.firebase.getArrayFromDb('breakfast').then(data => {
-    //   this.products = data;
-    // });
     // tslint:disable-next-line:forin
     for (const mealIterator in MealType) {
-      console.log(mealIterator);
-      this.firebase.arrayWithAddedProductFromDb(mealIterator.toLowerCase()).then(data => {
-      this.meals[mealIterator].productList = data;
-      console.log(this.meals[mealIterator].productList);
-    });
-      // this.meals[this.mealType.BREAKFAST].mergeArrayFromDb(this.products, this.allProducts);
+      this.meals[mealIterator.toLocaleLowerCase()] = new MealClass();
     }
-    console.log(this.allProducts);
-    console.log(localStorage.getItem('uid'));
-    this.refreshTotals();
+    // tslint:disable-next-line:forin
+    for (const mealIterator in MealType) {
+      this.firebase.getArrayFromDb(mealIterator.toLowerCase()).then(data => {
+      this.meals[mealIterator.toLowerCase()].mergeArrayFromDb(data, this.allProducts);
+      this.refreshTotals();
+      });
+    }
+
   }
 
   setMeal() {
@@ -114,7 +106,7 @@ export class HomePage {
   deleteProduct(meal: string, productID: number) {
     // tslint:disable-next-line:forin
     this.meals[meal].productList.forEach(element => {
-      if (element.data.id === productID ) {
+      if (element.data.id === productID) {
         this.meals[meal].deleteProduct(element.data.name);
         this.firebase.deleteProductFromDb(element, meal);
       }
@@ -123,20 +115,20 @@ export class HomePage {
     this.refreshTotals();
   }
 
- refreshTotals() {
+  refreshTotals() {
 
-  this.mealKcal = 0;
-  this.mealProtein = 0;
-  this.mealFat = 0;
-  this.mealCarbo = 0;
-  // tslint:disable-next-line:forin
-  for (const meal in MealType) {
-   this.mealKcal = this.mealKcal +  this.meals[meal.toLocaleLowerCase()].recount(NutrientType.KCAL);
-   this.mealProtein = this.mealProtein + this.meals[meal.toLocaleLowerCase()].recount(NutrientType.PROTEIN);
-   this.mealFat = this.mealFat + this.meals[meal.toLocaleLowerCase()].recount(NutrientType.FAT);
-   this.mealCarbo = this.mealCarbo + this.meals[meal.toLocaleLowerCase()].recount(NutrientType.CARBO);
+    this.mealKcal = 0;
+    this.mealProtein = 0;
+    this.mealFat = 0;
+    this.mealCarbo = 0;
+    // tslint:disable-next-line:forin
+    for (const meal in MealType) {
+      this.mealKcal = this.mealKcal + this.meals[meal.toLocaleLowerCase()].recount(NutrientType.KCAL);
+      this.mealProtein = this.mealProtein + this.meals[meal.toLocaleLowerCase()].recount(NutrientType.PROTEIN);
+      this.mealFat = this.mealFat + this.meals[meal.toLocaleLowerCase()].recount(NutrientType.FAT);
+      this.mealCarbo = this.mealCarbo + this.meals[meal.toLocaleLowerCase()].recount(NutrientType.CARBO);
 
+    }
   }
-}
 
 }

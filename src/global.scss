@@ -47,3 +47,9 @@ max-width: 100% !important;
 .alert-radio-label.sc-ion-alert-ios {
     white-space: normal;
 }
+
+div[select-text] {
+    display: inline-block !important;
+    text-align: right !important;
+    white-space: normal !important;
+ }

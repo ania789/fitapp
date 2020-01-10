@@ -6,7 +6,10 @@
   </ion-toolbar>
 </ion-header>
 
+<!-- <div *ngIf = "this.meals[this.mealType.BREAKFAST].productList === undefined" > Loading </div> -->
+
 <ion-content>
+  <!-- <div  *ngIf = "this.meals[this.mealType.BREAKFAST].productList !=== undefined"> -->
   <div>
     <ul class="list">
       <select class="item" [(ngModel)]="seletedMeal">
@@ -44,7 +47,6 @@
         <div>Protein: {{product.getProtein()}}</div>
         <div>Fat: {{product.getFat()}}</div>
         <div>Carbo: {{product.getCarbo()}} </div>
-        <div>{{product.data.id}}</div>
         <button (click)="deleteProduct(meal.value,product.data.id)">Delete product</button>
       
     </div>
@@ -61,5 +63,5 @@
 
     </div>
   </div>
-
+<!-- </div> -->
 </ion-content>

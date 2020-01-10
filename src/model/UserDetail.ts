@@ -11,6 +11,9 @@ export class UserData {
     bmi: number;
     ppm: number;
     cpm: number;
+    protein: number;
+    fat: number;
+    carbo: number;
 
     constructor(uid: string, age: number, sex: string, userPurpose: number,  weight: number, height: number , level: number) {
         this.uid = uid;
@@ -28,16 +31,28 @@ export class UserData {
         return this.weight / ( Math.pow(smallerHeight, 2));
     }
 
-    getPPmValue(): number {
-        if (this.sex.match('W')) {
-            return 655.1 + 9.563 * this.weight + 1.85 * this.height - 4.676 * this.age;
+    getKcalAccordToReason(): number {
+        if (this.userPurpose === 0) {
+            return this.cpm - 300;
+        } else if (this.userPurpose === 1) {
+            return this.cpm;
         } else {
-            return 66.5 + 13.75 * this.weight + 5.003 * this.height - 6.775 * this.age;
+            return this.cpm + 300;
         }
     }
 
+    getPPmValue(): number {
+        if (this.sex.match('W')) {
+            this.ppm = 655.1 + 9.563 * this.weight + 1.85 * this.height - 4.676 * this.age;
+        } else {
+            this.ppm = 66.5 + 13.75 * this.weight + 5.003 * this.height - 6.775 * this.age;
+        }
+        return this.ppm;
+    }
+
     getCpmValue(): number {
-        return this.ppm * this.level;
+        this.cpm = this.ppm * this.level;
+        return this.cpm;
     }
 
 
@@ -59,6 +74,22 @@ export class UserData {
             return 'maintanace weight';
         } else {
             return 'get weight';
+        }
+    }
+
+    getValueOfNutrientiens() {
+        if (this.level === 1.4 || this.level === 1.6) {
+            this.protein = 1.75 * this.weight;
+            this.fat = (this.ppm * 0.25);
+            this.carbo = (this.ppm - this.protein - this.fat);
+        } else if (this.level === 1.75 || this.level === 2.0) {
+            this.protein = 2 * this.weight;
+            this.fat = (this.ppm * 0.25);
+            this.carbo = (this.ppm - this.protein - this.fat);
+        } else {
+            this.protein = 2.5 * this.weight;
+            this.fat = (this.ppm * 0.25);
+            this.carbo = (this.ppm - this.protein - this.fat);
         }
     }
 

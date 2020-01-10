@@ -77,13 +77,11 @@ export class Firebase {
                                 });
                                 this.db.collection('UserProduct').doc(doc.id).update({
                                 });
-                                console.log('istnieje');
                             } else {
                                 this.db.collection('UserProduct').doc(doc.id).update({
                                     // tslint:disable-next-line:max-line-length
                                     products: firebase.firestore.FieldValue.arrayUnion({ id: userProduct.data.id, weight: userProduct.weight })
                                 });
-                                console.log('nieitnieje');
                             }
                         });
                     }

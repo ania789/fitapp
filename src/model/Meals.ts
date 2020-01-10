@@ -77,13 +77,12 @@ export class MealClass extends Meals {
     }
 
     addProduct(userProduct: UserProduct) {
-       const index = this.productList.findIndex(it => it.data.id === userProduct.data.id);
-       if (index === -1) {
+        const index = this.productList.findIndex(it => it.data.id === userProduct.data.id);
+        if (index === -1) {
             this.productList.push(userProduct);
-       } else {
-        this.productList[index] = userProduct;
-       }
-        // this.productList.push(userProduct);
+        } else {
+            this.productList[index] = userProduct;
+        }
     }
 
 
@@ -135,20 +134,11 @@ export class MealClass extends Meals {
     }
 
     // tslint:disable-next-line:ban-types
-    mergeArrayFromDb(addedProductsDb: Array<{id: string, weight: number}>, allProducts: Array<ProductData>) {
+    mergeArrayFromDb(addedProductsDb: Array<{ id: string, weight: number }>, allProducts: Array<ProductData>) {
         const productList: Array<UserProduct> = [];
         addedProductsDb.forEach(element => {
-            console.log(element.id);
-            console.log(element);
-            console.log(allProducts[element.id]);
-            console.log(allProducts);
-            allProducts.forEach(allProd => {
-                if (allProd.id === element.id) {
-                    const productToAdd: UserProduct = new UserProduct(allProd, element.weight);
-                    productList.push(productToAdd);
-                    console.log(productList);
-                }
-            });
+            const productToAdd: UserProduct = new UserProduct(allProducts[Number(element.id) - 1], element.weight);
+            this.productList.push(productToAdd);
         });
     }
 

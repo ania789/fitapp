@@ -4,9 +4,19 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+
+<ion-content  *ngIf = "this.user">
+  <!-- <div *ngIf = 'this.user.uid !== undefined'> -->
 <!-- <div>{{this.user.uid}}</div> -->
-<div>{{this.user.bmi}}</div>
-<div>{{this.user.ppm}}</div>
-<div>{{this.user.cpm}}</div>
+<div>{{this.user.weight}}</div>
+ <div>{{this.user.height}}</div> 
+ <div>{{this.user.getBmiValue()}}</div> 
+ <div>{{this.user.userPurpose}}</div>
+ <div>{{this.user.getPPmValue()}}</div>
+  <div>{{this.user.getCpmValue()}}</div>
+<div>{{this.user.getKcalAccordToReason()}}</div>
+<div>{{this.user.getValueOfNutrientiens()}}</div>
+<div>{{this.user.protein}}</div>
+<div>{{this.user.fat}}</div>
+<div>{{this.user.carbo}}</div>
 </ion-content>
