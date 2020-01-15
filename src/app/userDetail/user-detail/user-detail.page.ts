@@ -15,7 +15,6 @@ export class UserDetailPage {
 
   user: UserData;
   age: number;
-  infoForm: FormGroup;
   height: number;
   weight: number;
   sex: string;
@@ -34,7 +33,7 @@ export class UserDetailPage {
 
   async presentAlertRadio() {
     // tslint:disable-next-line:max-line-length
-    this.user = new UserData(localStorage.getItem('uid'), this.age, this.sex, Number(this.purpose), this.weight, this.height, this.activity);
+    this.user = new UserData(this.age, this.sex, Number(this.purpose), this.weight, this.height, this.activity);
 
     console.log(this.user.getReason(this.user.getBmiValue()));
     console.log(Number(this.purpose));
@@ -91,7 +90,7 @@ export class UserDetailPage {
   }
   saveUserDetail(alertData: any) {
     // tslint:disable-next-line:max-line-length
-    this.user = new UserData(localStorage.getItem('uid'), this.age, this.sex, alertData, this.weight, this.height, this.activity);
+    this.user = new UserData(this.age, this.sex, alertData, this.weight, this.height, this.activity);
     this.firebase.saveInfoAboutUser(this.user);
   }
 }

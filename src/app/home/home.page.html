@@ -10,7 +10,8 @@
 
 <ion-content>
   <!-- <div  *ngIf = "this.meals[this.mealType.BREAKFAST].productList !=== undefined"> -->
-  <div>
+    <div class = "container-fluid">
+  <!-- <div>
     <ul class="list">
       <select class="item" [(ngModel)]="seletedMeal">
         <option >{{this.mealType.BREAKFAST}}</option >
@@ -20,48 +21,53 @@
       </select>
       <button ion-button round (click)="setMeal($event, meal)">Select meal</button>
     </ul>
-  </div>
+  </div> -->
 
   
   
   <div style="width:100%">
-    <div style="width: 20%; display: inline-block;">
+    <!-- <div style="width: 20%; display: inline-block;">
       <ul class="list">
         <select class="item" [(ngModel)]="selectedProduct">
           <option *ngFor="let product of allProducts" [ngValue]="product">{{product.name}} </option>
         </select>
         <button  [disabled] = "!seletedMeal || !selectedProduct" ion-button round (click)= "presentAlertConfirmAndAddGrams()" >Add</button>
       </ul>
-    </div>
+    </div> -->
 
 
-    <div *ngFor="let meal of this.mealType | keyvalue">
-    <div style="width: 20%; float: right" >
+    <div  *ngFor="let meal of this.mealType | keyvalue" >
 
-      <div >Added products:</div>
-      <div>{{meal.value}}</div>
-      <div *ngFor="let product of this.meals[meal.value].productList; let i = index" > <!-- this.meals[TYPE]-->
-        <div>Name: {{product.data.name}} </div>
-        <div>Grams: {{product.weight}}</div>
-        <div>Kcal: {{product.getKcal()}}</div>
-        <div>Protein: {{product.getProtein()}}</div>
-        <div>Fat: {{product.getFat()}}</div>
-        <div>Carbo: {{product.getCarbo()}} </div>
+      <div>{{meal.value}}
+        <select class="item" [(ngModel)]="selectedProduct">
+          <option *ngFor="let product of allProducts" [ngValue]="product">{{product.name}} </option>
+        </select>
+      <button  [disabled] = "!selectedProduct" ion-button round (click)= "presentAlertConfirmAndAddGrams(meal.value)" >Add</button>
+      </div>
+      <ul style="display: inline-flex;list-style-type: none" *ngFor="let product of this.meals[meal.value].productList; let i = index"  > <!-- this.meals[TYPE]-->
+        <li class = "margin: 0 10px 0"> 
+           Name: {{product.data.name}} 
+           <li style = "margin: 0 10px 0"> Grams: {{product.weight}} </li>
+           <li style = "margin: 0 10px 0"> Kcal: {{product.getKcal()}} </li>
+           <li style = "margin: 0 10px 0"> Protein: {{product.getProtein()}} </li>
+           <li style = "margin: 0 10px 0"> Fat: {{product.getFat()}} </li>
+           <li style = "margin: 0 10px 0"> Carbo: {{product.getCarbo()}} </li>
         <button (click)="deleteProduct(meal.value,product.data.id)">Delete product</button>
       
-    </div>
-    </div>
+    </ul>
   </div>
 
 
-    <div style="width: 10%; display: inline-block;">
       <div>Sum of:</div>
       <div>Liczba kcal (suma): {{mealKcal}}</div>
+      <ion-progress-bar color="primary" value="0.5"></ion-progress-bar>
       <div>Liczba protein (suma): {{mealProtein}}</div>
+      <ion-progress-bar color="primary" value="0.5"></ion-progress-bar>
       <div>Liczba fat (suma): {{mealFat}}</div>
+      <ion-progress-bar color="primary" value="0.5"></ion-progress-bar>
       <div>Liczba carbo (suma): {{mealCarbo}}</div>
 
-    </div>
   </div>
 <!-- </div> -->
+</div>
 </ion-content>

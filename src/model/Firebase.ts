@@ -32,7 +32,7 @@ export class Firebase {
     }
 
     saveInfoAboutUser(user: UserData) {
-        this.db.collection('UserData').doc(user.uid).set(Object.assign({}, user))
+        this.db.collection('UserData').doc(localStorage.getItem('uid')).set(Object.assign({}, user))
             .then(snapshot => {
                 console.log('Document successfully written!');
             })
@@ -114,7 +114,7 @@ export class Firebase {
             .then(doc => {
                 if (doc.exists) {
                     // tslint:disable-next-line:max-line-length
-                    user = new UserData(doc.data().uid, doc.data().age, doc.data().sex, doc.data().userPurpose, doc.data().weight, doc.data().height, doc.data().level);
+                    user = new UserData(doc.data().age, doc.data().sex, doc.data().userPurpose, doc.data().weight, doc.data().height, doc.data().level);
                     console.log(localStorage.getItem('uid'));
                     console.log(doc.data());
                     console.log(user);

@@ -13,8 +13,12 @@
     max-width: 100% !important;
    }
 
-div.select-text {
-   display: inline-block !important;
-   text-align: right !important;
-   white-space: normal !important;
+ion-select {
+   --overflow: initial !important;
+   --margin-right: 15px !important;
+   --text-overflow: clip !important;
+   --display:  inline-block !important;
+   --text-align: right !important;
+   --white-space: normal !important;
+   
 }

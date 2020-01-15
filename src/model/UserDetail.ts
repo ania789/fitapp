@@ -1,7 +1,7 @@
 enum reasonValue {lose = 2, stay = 1, get = 0}
 
 export class UserData {
-    uid: string;
+    username: string;
     age: number;
     sex: string;
     userPurpose: number;
@@ -15,8 +15,7 @@ export class UserData {
     fat: number;
     carbo: number;
 
-    constructor(uid: string, age: number, sex: string, userPurpose: number,  weight: number, height: number , level: number) {
-        this.uid = uid;
+    constructor(age: number, sex: string, userPurpose: number,  weight: number, height: number , level: number) {
         this.age = age;
         this.sex = sex;
         this.userPurpose = userPurpose;
@@ -79,17 +78,17 @@ export class UserData {
 
     getValueOfNutrientiens() {
         if (this.level === 1.4 || this.level === 1.6) {
-            this.protein = 1.75 * this.weight;
-            this.fat = (this.ppm * 0.25);
-            this.carbo = (this.ppm - this.protein - this.fat);
+            this.protein = (1.75 * this.weight) / 4;
+            this.fat = (this.ppm * 0.25) / 9;
+            this.carbo = (this.ppm - this.protein - this.fat) / 4;
         } else if (this.level === 1.75 || this.level === 2.0) {
-            this.protein = 2 * this.weight;
-            this.fat = (this.ppm * 0.25);
-            this.carbo = (this.ppm - this.protein - this.fat);
+            this.protein = (2 * this.weight) / 4;
+            this.fat = (this.ppm * 0.25) / 9;
+            this.carbo = (this.ppm - this.protein - this.fat) / 4;
         } else {
-            this.protein = 2.5 * this.weight;
-            this.fat = (this.ppm * 0.25);
-            this.carbo = (this.ppm - this.protein - this.fat);
+            this.protein = (2.5 * this.weight) / 4;
+            this.fat = (this.ppm * 0.25) / 9;
+            this.carbo = (this.ppm - this.protein - this.fat) / 4;
         }
     }
 

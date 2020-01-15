@@ -9,7 +9,7 @@
   <div class = "col-xl">
   <ion-item class="alert-email">
     <ion-label position="floating">E-mail</ion-label>
-    <ion-input id="email" [(ngModel)]="email" type="email" required
+    <ion-input  [(ngModel)]="email" type="email" required
       pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"></ion-input>
   </ion-item>
   <div class = "form-group">
@@ -18,7 +18,7 @@
     <ion-input type="password" [(ngModel)]="password" required></ion-input>
   </ion-item>
   </div>
-  <ion-button color="primary" size = 'small' (click)="login(email,password)" [disabled] = "!email || !password">Login </ion-button>
+  <ion-button style = "display: grid" color="primary" size = 'small' (click)="login()" [disabled] = "!email || !password">Login </ion-button>
 </div>
 </div>
 </ion-content>

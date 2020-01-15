@@ -5,9 +5,7 @@
 </ion-header>
 
 
-<ion-content  *ngIf = "this.user">
-  <!-- <div *ngIf = 'this.user.uid !== undefined'> -->
-<!-- <div>{{this.user.uid}}</div> -->
+<!-- <ion-content  *ngIf = "this.user">
 <div>{{this.user.weight}}</div>
  <div>{{this.user.height}}</div> 
  <div>{{this.user.getBmiValue()}}</div> 
@@ -19,4 +17,20 @@
 <div>{{this.user.protein}}</div>
 <div>{{this.user.fat}}</div>
 <div>{{this.user.carbo}}</div>
+</ion-content> -->
+
+<ion-content *ngIf = "this.user">
+  <div class="col ">
+   <div> Weight: {{this.user.weight}}</div>
+   <div> Height: {{this.user.height}} </div>
+   <div> Bmi: {{this.user.getBmiValue()}} </div>
+   <div> PPM: {{this.user.getPPmValue()}}</div>
+   <div> CPM: {{this.user.getCpmValue()}}</div>
+   <div> Number of kcal to achieve the goal: {{this.user.getKcalAccordToReason()}}</div>
+   <div> Number of nutrient: {{this.user.getValueOfNutrientiens()}}</div>
+   <div> Protein: {{this.user.protein}} g</div>
+   <div> Fat: {{this.user.fat}} g</div>
+   <div> Carbo: {{this.user.carbo}} g</div>
+  </div>
 </ion-content>
+

@@ -31,16 +31,16 @@ export class UserProduct {
     }
 
     getKcal(): number {
-        return this.data.kcal * this.weight * 0.01;
+        return Math.round(this.data.kcal * this.weight * 0.01);
     }
     getProtein(): number {
-        return this.data.protein * this.weight * 0.01;
+        return Math.round(this.data.protein * this.weight * 0.01);
     }
     getFat(): number {
-        return this.data.fat * this.weight * 0.01;
+        return Math.round(this.data.fat * this.weight * 0.01);
     }
     getCarbo(): number {
-        return this.data.carbo * this.weight * 0.01;
+        return Math.round(this.data.carbo * this.weight * 0.01);
     }
 
 

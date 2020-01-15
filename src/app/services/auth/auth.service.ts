@@ -4,18 +4,21 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { MatSnackBar } from '@angular/material';
 import { Firebase } from 'src/model/Firebase';
 import { ToastController } from '@ionic/angular';
+import { CanActivate, Router } from '@angular/router';
+import { UserData } from 'src/model/UserDetail';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
+export class AuthService implements CanActivate {
 
   user: User;
+  userData: UserData;
   firebase = new Firebase();
   constructor(
     public angularFireAuth: AngularFireAuth,
     private snackBar: MatSnackBar,
-    private toastCtrl: ToastController
+    private router: Router
 
   ) {
     angularFireAuth.authState.subscribe(user => {
@@ -24,6 +27,23 @@ export class AuthService {
       }
     });
 
+  }
+
+  canActivate() {
+    if (this.isAuthenticated()) {
+      return true;
+    }
+    this.router.navigate(['/login']);
+    return false;
+   }
+
+
+  isAuthenticated() {
+    const token = localStorage.getItem('uid');
+    if (token) {
+      return true;
+    }
+    return false;
   }
 
 
@@ -36,7 +56,7 @@ export class AuthService {
         this.snackBar.open('Account successfully created!', 'OK', {
           duration: 3000
         });
-
+        this.router.navigate(['/user-detail']);
       })
       .catch(err => {
         this.snackBar.open(err, 'OK', {
@@ -50,7 +70,8 @@ export class AuthService {
       .signInWithEmailAndPassword(email, password)
       .then(res => {
         localStorage.setItem('uid', res.user.uid);
-        console.log('success');
+        // this.userData.username = email;
+        this.router.navigate(['/home']);
       })
       .catch(err => {
         this.snackBar.open('error', 'OK', {

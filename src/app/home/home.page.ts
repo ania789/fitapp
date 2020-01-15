@@ -4,6 +4,7 @@ import { Product, ProductData } from 'src/model/Product';
 import { AlertController } from '@ionic/angular';
 import { Firebase } from 'src/model/Firebase';
 import { MatSnackBar } from '@angular/material';
+import { UserData } from 'src/model/UserDetail';
 
 
 
@@ -64,14 +65,15 @@ export class HomePage {
   }
 
 
-  async presentAlertConfirmAndAddGrams() {
+  async presentAlertConfirmAndAddGrams(meal: string) {
     const alert = await this.alertController.create({
       header: 'Grams',
       inputs: [
         {
           name: 'gram',
           type: 'number',
-          placeholder: 'gram'
+          placeholder: 'gram',
+          id: 'focus'
         }
       ],
       buttons: [
@@ -86,12 +88,12 @@ export class HomePage {
           text: 'Ok',
           handler: (alertData) => {
             this.numberOfGrams = alertData.gram;
-            this.addProduct(this.selectedProduct, this.numberOfGrams, this.seletedMeal);
+            this.addProduct(this.selectedProduct, this.numberOfGrams, meal);
           }
         }
       ]
     });
-    await alert.present();
+    await alert.present().then(() => document.getElementById('focus').focus());
   }
 
   addProduct(selectedProduct: ProductData, numberOfGrams: number, selectedMeal: string) {
