@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { UserData } from 'src/model/UserDetail';
-import {
-  FormGroup, FormArray, FormBuilder,
-  Validators, ReactiveFormsModule
-} from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 import { AlertController, ToastController } from '@ionic/angular';
 import { Firebase } from 'src/model/Firebase';
+import { AngularFireAuth } from 'angularfire2/auth';
 @Component({
   selector: 'app-user-detail',
   templateUrl: './user-detail.page.html',
   styleUrls: ['./user-detail.page.scss'],
+  providers: [AngularFireAuth]
 })
 export class UserDetailPage {
 
@@ -23,6 +23,7 @@ export class UserDetailPage {
   AppReson: number;
   firebase: Firebase;
 
+  selectClass = {cssClass: 'selectAnia'};
 
 
   constructor(public alertCtrl: AlertController, private toastCtrl: ToastController) {

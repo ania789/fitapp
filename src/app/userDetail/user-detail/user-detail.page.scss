@@ -2,7 +2,7 @@
 
  .alert-wrapper{
     max-width: unset !important;
-    width: 100% !important;
+    width: 90% !important;
 }
 
 .wider-popover .popover-content {
@@ -10,7 +10,7 @@
  }
 
  .myCustomSelect{
-    max-width: 100% !important;
+    max-width: 80% !important;
    }
 
 ion-select {
@@ -21,4 +21,8 @@ ion-select {
    --text-align: right !important;
    --white-space: normal !important;
    
+}
+
+.selectAnia div {
+   white-space: normal !important;
 }

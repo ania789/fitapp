@@ -27,16 +27,16 @@ export class UserData {
  // weight: number, height: number
     getBmiValue(): number {
         const smallerHeight = this.height / 100;
-        return this.weight / ( Math.pow(smallerHeight, 2));
+        return Math.round(this.weight / ( Math.pow(smallerHeight, 2)));
     }
 
-    getKcalAccordToReason(): number {
-        if (this.userPurpose === 0) {
-            return this.cpm - 300;
-        } else if (this.userPurpose === 1) {
-            return this.cpm;
+    getKcalAccordToReason(user: UserData): number {
+        if (user.userPurpose === 0) {
+            return Math.round(this.cpm - 300);
+        } else if (user.userPurpose === 1) {
+            return Math.round(this.cpm);
         } else {
-            return this.cpm + 300;
+            return Math.round(this.cpm + 300);
         }
     }
 
@@ -46,12 +46,12 @@ export class UserData {
         } else {
             this.ppm = 66.5 + 13.75 * this.weight + 5.003 * this.height - 6.775 * this.age;
         }
-        return this.ppm;
+        return Math.round(this.ppm);
     }
 
     getCpmValue(): number {
         this.cpm = this.ppm * this.level;
-        return this.cpm;
+        return Math.round(this.cpm);
     }
 
 
@@ -78,17 +78,17 @@ export class UserData {
 
     getValueOfNutrientiens() {
         if (this.level === 1.4 || this.level === 1.6) {
-            this.protein = (1.75 * this.weight) / 4;
-            this.fat = (this.ppm * 0.25) / 9;
-            this.carbo = (this.ppm - this.protein - this.fat) / 4;
+            this.protein = Math.round((1.75 * this.weight) / 4);
+            this.fat = Math.round((this.cpm * 0.25) / 9);
+            this.carbo = Math.round((this.cpm - this.protein - this.fat) / 4);
         } else if (this.level === 1.75 || this.level === 2.0) {
-            this.protein = (2 * this.weight) / 4;
-            this.fat = (this.ppm * 0.25) / 9;
-            this.carbo = (this.ppm - this.protein - this.fat) / 4;
+            this.protein = Math.round((2 * this.weight) / 4);
+            this.fat = Math.round((this.cpm * 0.25) / 9);
+            this.carbo = Math.round((this.cpm - this.protein - this.fat) / 4);
         } else {
-            this.protein = (2.5 * this.weight) / 4;
-            this.fat = (this.ppm * 0.25) / 9;
-            this.carbo = (this.ppm - this.protein - this.fat) / 4;
+            this.protein = Math.round((2.5 * this.weight) / 4);
+            this.fat = Math.round((this.cpm * 0.25) / 9);
+            this.carbo = Math.round((this.cpm - this.protein - this.fat) / 4);
         }
     }
 

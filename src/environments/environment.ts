@@ -16,3 +16,13 @@ export enum MealType {BREAKFAST = 'breakfast', LUNCH = 'lunch', DINNER= 'dinner'
  * on performance if an error is thrown.
  */
 // import 'zone.js/dist/zone-error';  // Included with Angular CLI.
+
+export const config = {
+  apiKey: 'AIzaSyCnm-pXuNmhRCoOEK6nEtpZ3MLiA0DGGb8',
+      authDomain: 'fitapp-9d9f9.firebaseapp.com',
+      databaseURL: 'https://fitapp-9d9f9.firebaseio.com',
+      projectId: 'fitapp-9d9f9',
+      storageBucket: 'fitapp-9d9f9.appspot.com',
+      messagingSenderId: '33153467513',
+      appId: '1:33153467513:web:dae144700c00d0af0200a8'};
+

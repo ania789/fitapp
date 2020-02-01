@@ -1,12 +1,12 @@
-<ion-header>
+<!-- <ion-header>
   <ion-toolbar>
     <ion-title>userDetail</ion-title>
   </ion-toolbar>
-</ion-header>
+</ion-header> -->
 
+<app-header></app-header>
 <ion-content>
-  <div class = "container-fluid">
-    <div class = "col-xl">
+    <div class="col-12 col-sm-6">
   <div style="width: 100%; display: inline-block;">
     <ion-list>
 
@@ -59,7 +59,7 @@
 
 <ion-item >
     <ion-label>Activity</ion-label>
-    <ion-select  [interfaceOptions]="customAlertOptions" interface="alert"  [(ngModel)] = "activity" placeholder="Select One" type="number" >
+    <ion-select  class = "selectAnia" [interfaceOptions]="customAlertOptions" interface="alert"  [(ngModel)] = "activity" placeholder="Select One" type="number" >
       <ion-select-option  value="1.4">Low activity -> 3 workouts per week(less than 30 min) or sitting work without low
         activity</ion-select-option>
       <ion-select-option value="1.6"> 3 workouts per week - 60 min include 20 min strength exercises
@@ -88,6 +88,5 @@
     >
       SAVE
     </ion-button>
-  </div>
 </div>
 </ion-content>

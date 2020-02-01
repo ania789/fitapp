@@ -6,6 +6,7 @@ import { Firebase } from 'src/model/Firebase';
 import { ToastController } from '@ionic/angular';
 import { CanActivate, Router } from '@angular/router';
 import { UserData } from 'src/model/UserDetail';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root'
@@ -71,13 +72,20 @@ export class AuthService implements CanActivate {
       .then(res => {
         localStorage.setItem('uid', res.user.uid);
         // this.userData.username = email;
-        this.router.navigate(['/home']);
+        this.router.navigate(['/quotation']);
       })
       .catch(err => {
         this.snackBar.open('error', 'OK', {
           duration: 3000
         });
       });
+  }
+
+  logout() {
+    localStorage.clear();
+    return this.angularFireAuth.auth.signOut().then(() => {
+      this.router.navigate(['/login']);
+    });
   }
 
 }

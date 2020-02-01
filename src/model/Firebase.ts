@@ -115,9 +115,6 @@ export class Firebase {
                 if (doc.exists) {
                     // tslint:disable-next-line:max-line-length
                     user = new UserData(doc.data().age, doc.data().sex, doc.data().userPurpose, doc.data().weight, doc.data().height, doc.data().level);
-                    console.log(localStorage.getItem('uid'));
-                    console.log(doc.data());
-                    console.log(user);
                     return user;
                 } else {
                     console.log('no such document');
@@ -126,7 +123,6 @@ export class Firebase {
             .catch(err => {
                 console.log('Error getting documents', err);
             });
-        console.log(user);
         return user;
     }
 

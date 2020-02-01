@@ -1,21 +1,24 @@
-import { Component, Injectable } from '@angular/core';
+import { Component, Injectable, OnInit } from '@angular/core';
 import { Meals, MealType, MealClass, NutrientType, UserProduct } from 'src/model/Meals';
 import { Product, ProductData } from 'src/model/Product';
 import { AlertController } from '@ionic/angular';
 import { Firebase } from 'src/model/Firebase';
 import { MatSnackBar } from '@angular/material';
 import { UserData } from 'src/model/UserDetail';
-
-
+import { MatSnackBarModule } from '@angular/material';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {HeaderPageModule} from 'src/app/header/header/header.module';
+import { AngularFireAuth } from 'angularfire2/auth';
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
+  providers: [AngularFireAuth]
 })
 
 
-export class HomePage {
+export class HomePage implements OnInit {
   meal: MealClass; // meals: MealClass[];
   meals: MealClass[] = [];
   mealName: string;
@@ -41,6 +44,7 @@ export class HomePage {
   productToDelete: ProductData;
   products: Array<{ id: string, weight: number }>;
   firebase: Firebase = new Firebase();
+  user: UserData;
 
   constructor(public alertController: AlertController, private snackBar: MatSnackBar) {
     this.meal = new MealClass();
@@ -57,8 +61,15 @@ export class HomePage {
       this.refreshTotals();
       });
     }
+    localStorage.getItem('uid');
 
   }
+
+  ngOnInit(): void {
+  }
+
+
+
 
   setMeal() {
     this.meal.mealType = this.meal.setMealType(this.seletedMeal);

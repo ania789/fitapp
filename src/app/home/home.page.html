@@ -1,50 +1,26 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>
-      Ionic Blank
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
 
-<!-- <div *ngIf = "this.meals[this.mealType.BREAKFAST].productList === undefined" > Loading </div> -->
+<!-- <app-header></app-header> -->
 
-<ion-content>
-  <!-- <div  *ngIf = "this.meals[this.mealType.BREAKFAST].productList !=== undefined"> -->
-    <div class = "container-fluid">
-  <!-- <div>
-    <ul class="list">
-      <select class="item" [(ngModel)]="seletedMeal">
-        <option >{{this.mealType.BREAKFAST}}</option >
-        <option >{{this.mealType.LUNCH}}</option>
-        <option >{{this.mealType.DINNER}}</option>
-        <option >{{this.mealType.SUPPER}}</option>
-      </select>
-      <button ion-button round (click)="setMeal($event, meal)">Select meal</button>
-    </ul>
-  </div> -->
 
+<div>Hello</div>
+<!-- <ion-content> -->
   
-  
-  <div style="width:100%">
-    <!-- <div style="width: 20%; display: inline-block;">
-      <ul class="list">
-        <select class="item" [(ngModel)]="selectedProduct">
-          <option *ngFor="let product of allProducts" [ngValue]="product">{{product.name}} </option>
-        </select>
-        <button  [disabled] = "!seletedMeal || !selectedProduct" ion-button round (click)= "presentAlertConfirmAndAddGrams()" >Add</button>
-      </ul>
-    </div> -->
+  <!-- <div class="container-fluid">
+    <div style="width:100%"> -->
+
+<!-- selectedProduct[meal] -->
 
 
-    <div  *ngFor="let meal of this.mealType | keyvalue" >
+      <!-- <div *ngFor="let meal of this.mealType | keyvalue">
 
-      <div>{{meal.value}}
-        <select class="item" [(ngModel)]="selectedProduct">
-          <option *ngFor="let product of allProducts" [ngValue]="product">{{product.name}} </option>
-        </select>
-      <button  [disabled] = "!selectedProduct" ion-button round (click)= "presentAlertConfirmAndAddGrams(meal.value)" >Add</button>
-      </div>
-      <ul style="display: inline-flex;list-style-type: none" *ngFor="let product of this.meals[meal.value].productList; let i = index"  > <!-- this.meals[TYPE]-->
+        <div>{{meal.value}}
+          <select class="item" [(ngModel)]="selectedProduct" >
+            <option *ngFor="let product of allProducts" [ngValue]="product">{{product.name}} </option>
+          </select>
+          <button [disabled]="!selectedProduct" ion-button round
+            (click)="presentAlertConfirmAndAddGrams(meal.value)">Add</button>
+        </div> -->
+        <!-- <ul style="display: inline-flex;list-style-type: none" *ngFor="let product of this.meals[meal.value].productList; let i = index"  >
         <li class = "margin: 0 10px 0"> 
            Name: {{product.data.name}} 
            <li style = "margin: 0 10px 0"> Grams: {{product.weight}} </li>
@@ -52,22 +28,30 @@
            <li style = "margin: 0 10px 0"> Protein: {{product.getProtein()}} </li>
            <li style = "margin: 0 10px 0"> Fat: {{product.getFat()}} </li>
            <li style = "margin: 0 10px 0"> Carbo: {{product.getCarbo()}} </li>
-        <button (click)="deleteProduct(meal.value,product.data.id)">Delete product</button>
-      
-    </ul>
-  </div>
+        
+    </ul> -->
+
+        <!-- <div *ngFor="let product of this.meals[meal.value].productList; let i = index"> -->
+          <!-- this.meals[TYPE]-->
+          <!-- <div class="row no-gutters justify-content-center">
+            Name: {{product.data.name}}
+            <div class="col-6 col-md-2"> Grams: {{product.weight}} </div>
+            <div class="col-6 col-md-2"> Kcal: {{product.getKcal()}} </div>
+            <div class="col-6 col-md-2"> Protein: {{product.getProtein()}} </div>
+            <div class="col-6 col-md-2"> Fat: {{product.getFat()}} </div>
+            <div class="col-6 col-md-2"> Carbo: {{product.getCarbo()}} </div>
+          </div>
+
+          <button (click)="deleteProduct(meal.value,product.data.id)">Delete product</button>
+        </div>
 
 
-      <div>Sum of:</div>
-      <div>Liczba kcal (suma): {{mealKcal}}</div>
-      <ion-progress-bar color="primary" value="0.5"></ion-progress-bar>
-      <div>Liczba protein (suma): {{mealProtein}}</div>
-      <ion-progress-bar color="primary" value="0.5"></ion-progress-bar>
-      <div>Liczba fat (suma): {{mealFat}}</div>
-      <ion-progress-bar color="primary" value="0.5"></ion-progress-bar>
-      <div>Liczba carbo (suma): {{mealCarbo}}</div>
-
-  </div>
-<!-- </div> -->
-</div>
-</ion-content>
+        <div>Sum of:</div>
+        <div>Liczba kcal (suma): {{mealKcal}}</div>
+        <div>Liczba protein (suma): {{mealProtein}}</div>
+        <div>Liczba fat (suma): {{mealFat}}</div>
+        <div>Liczba carbo (suma): {{mealCarbo}}</div>
+      </div>
+      </div>
+    </div> -->
+<!-- </ion-content> -->

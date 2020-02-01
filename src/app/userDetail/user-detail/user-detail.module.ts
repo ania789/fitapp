@@ -7,6 +7,8 @@ import { IonicModule } from '@ionic/angular';
 import { UserDetailPageRoutingModule } from './user-detail-routing.module';
 
 import { UserDetailPage } from './user-detail.page';
+import { HeaderPage } from 'src/app/header/header/header.page';
+import { HeaderPageModule } from 'src/app/header/header/header.module';
 
 @NgModule({
   imports: [
@@ -15,7 +17,8 @@ import { UserDetailPage } from './user-detail.page';
     IonicModule,
     UserDetailPageRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HeaderPageModule
   ],
   declarations: [UserDetailPage]
 })

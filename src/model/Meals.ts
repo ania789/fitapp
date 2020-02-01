@@ -14,11 +14,6 @@ export enum NutrientType { KCAL = 'kcal', PROTEIN = 'protein', FAT = 'fat', CARB
 
 export class Meals {
     mealType: MealType;
-
-    // constructor(mealType: MealType) {
-    //     this.mealType = mealType;
-    // }
-
 }
 
 export class UserProduct {

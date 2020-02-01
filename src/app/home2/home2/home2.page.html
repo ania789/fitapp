@@ -1,0 +1,69 @@
+<app-header></app-header>
+
+<ion-content *ngIf="this.user">
+
+  <div class="container-fluid">
+    <div style="width:100%">
+      <div class="progressing">
+        <h2 style="margin-top: 0px">Sum of:</h2>
+        <!-- <div class="row no-gutters justify-content-center"> -->
+
+        <div class="col-12 col-sm-6">
+          <div>KCAL: {{mealKcal}}</div>
+          <ion-progress-bar [value]="mealKcal/this.user.getKcalAccordToReason(this.user)"></ion-progress-bar>
+        </div>
+        <div class="col-12 col-sm-6">
+          <div>PROTEIN: {{mealProtein}}</div>
+          <ion-progress-bar color="secondary" [value]="mealProtein/this.user.protein"></ion-progress-bar>
+        </div>
+        <div class="col-12 col-sm-6">
+          <div>FAT: {{mealFat}}</div>
+          <ion-progress-bar color="medium" [value]="mealFat/this.user.fat"></ion-progress-bar>
+        </div>
+        <div class="col-12 col-sm-6 processing">
+          <div>CARBO: {{mealCarbo}}</div>
+          <ion-progress-bar color="success" [value]="mealCarbo/this.user.carbo"></ion-progress-bar>
+        </div>
+      </div>
+
+
+      <!-- selectedProduct[meal] -->
+
+
+      <div *ngFor="let meal of this.mealType | keyvalue" >
+
+        <div><strong>{{meal.value.toUpperCase()}}</strong></div>
+        <div class="col-md-12 form-group form-inline" style="margin: 0;">
+          <select  class="col-5 col-sm-2" [(ngModel)]="selectedProduct[meal.value]">
+            <option *ngFor="let product of allProducts" [ngValue]="product">{{product.name}} </option>
+          </select>
+          <ion-button style="margin: 10px auto; width: 10%;" mat-raised-button class="col-5 col-sm-2"
+            [disabled]="!selectedProduct[meal.value]" size='small' color="primary"
+            (click)="presentAlertConfirmAndAddGrams(meal.value)">Add</ion-button>
+        </div>
+
+        <div *ngFor="let product of this.meals[meal.value].productList; let i = index">
+          <!-- this.meals[TYPE]-->
+          <div class="row no-gutters justify-content-center">
+            <div class="col-6 col-sm-2"> <strong>{{product.data.name}}</strong> </div>
+            <div class="col-6 col-sm-2"> <strong>{{product.weight}}g</strong> </div>
+            <div class="col-6 col-sm-2"> Kcal:{{product.getKcal()}} </div>
+            <div class="col-6 col-sm-2"> Protein:{{product.getProtein()}} </div>
+            <div class="col-6 col-sm-2"> Fat:{{product.getFat()}} </div>
+            <div class="col-6 col-sm-2"> 
+              Carbo:{{product.getCarbo()}} 
+              <ion-button style = "padding: 5px" size="small" color="danger" (click)="deleteProduct(meal.value,product.data.id)">X</ion-button>
+          </div>
+        </div>
+
+
+
+        </div>
+      </div>
+
+
+      <!-- </div> -->
+
+    </div>
+  </div>
+</ion-content>

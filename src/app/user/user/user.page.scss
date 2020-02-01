@@ -1,0 +1,51 @@
+.subrow{
+    width: 100%;
+
+}
+
+.subrow-content {
+    padding: 10px;
+    width: 100%;
+}
+
+.photoContainer{
+    width: 25%;
+    text-align: center;
+    display: inline-block;
+    padding: 10px;
+}
+
+.userData{
+
+    width: 74%;
+    display: inline-block;
+    vertical-align: top;
+    padding-left: 20px;
+
+}
+
+
+
+.photo {
+    width: 150px;
+    height: 200px;
+    max-width: 100%;
+    border: 2px solid black;
+}
+
+
+.list {
+& > ul  {
+    padding: 0;
+}
+& ul {
+    & > li {
+        list-style: none;
+
+        & > strong {
+            min-width: 25%;
+            display: inline-block;
+        }
+    }
+}
+}
