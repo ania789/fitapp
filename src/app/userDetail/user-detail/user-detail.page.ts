@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AlertController, ToastController } from '@ionic/angular';
 import { Firebase } from 'src/model/Firebase';
 import { AngularFireAuth } from 'angularfire2/auth';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-user-detail',
   templateUrl: './user-detail.page.html',
@@ -26,7 +27,7 @@ export class UserDetailPage {
   selectClass = {cssClass: 'selectAnia'};
 
 
-  constructor(public alertCtrl: AlertController, private toastCtrl: ToastController) {
+  constructor(public alertCtrl: AlertController, private toastCtrl: ToastController, private router: Router) {
     this.firebase = new Firebase();
   }
 
@@ -88,6 +89,7 @@ export class UserDetailPage {
       duration: 2000
     });
     toast.present();
+    this.router.navigate(['/home2']);
   }
   saveUserDetail(alertData: any) {
     // tslint:disable-next-line:max-line-length

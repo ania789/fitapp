@@ -5,6 +5,7 @@ import { Firebase } from 'src/model/Firebase';
 import { UserData } from 'src/model/UserDetail';
 import { AlertController } from '@ionic/angular';
 import { MatSnackBar } from '@angular/material';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home2',
@@ -40,7 +41,7 @@ export class Home2Page implements OnInit {
   user: UserData;
   total: number;
 
-  constructor(public alertController: AlertController, private snackBar: MatSnackBar) {
+  constructor(public alertController: AlertController, private snackBar: MatSnackBar, private router: Router) {
     this.meal = new MealClass();
     this.allProducts = this.firebase.getProducts();
     this.mealType = MealType;
@@ -147,6 +148,9 @@ export class Home2Page implements OnInit {
       this.mealCarbo = this.mealCarbo + this.meals[meal.toLocaleLowerCase()].recount(NutrientType.CARBO);
 
     }
+  }
+  navigateToUser() {
+    this.router.navigate(['/user']);
   }
 
 }

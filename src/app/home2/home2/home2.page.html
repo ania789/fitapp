@@ -41,12 +41,13 @@
             [disabled]="!selectedProduct[meal.value]" size='small' color="primary"
             (click)="presentAlertConfirmAndAddGrams(meal.value)">Add</ion-button>
         </div>
-
+        
+        
         <div *ngFor="let product of this.meals[meal.value].productList; let i = index">
           <!-- this.meals[TYPE]-->
           <div class="row no-gutters justify-content-center">
             <div class="col-6 col-sm-2"> <strong>{{product.data.name}}</strong> </div>
-            <div class="col-6 col-sm-2"> <strong>{{product.weight}}g</strong> </div>
+            <div class="col-6 col-sm-2"> <strong>{{product.weight}} g</strong> </div>
             <div class="col-6 col-sm-2"> Kcal:{{product.getKcal()}} </div>
             <div class="col-6 col-sm-2"> Protein:{{product.getProtein()}} </div>
             <div class="col-6 col-sm-2"> Fat:{{product.getFat()}} </div>
@@ -55,15 +56,11 @@
               <ion-button style = "padding: 5px" size="small" color="danger" (click)="deleteProduct(meal.value,product.data.id)">X</ion-button>
           </div>
         </div>
-
-
-
         </div>
       </div>
-
-
-      <!-- </div> -->
-
     </div>
   </div>
+  <ion-button style="margin: 10px auto; width: 20%;" size="small" mat-raised-button class="col-5 col-sm-2"
+  (click)="navigateToUser()"
+  >Info</ion-button>
 </ion-content>
