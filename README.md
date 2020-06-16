@@ -22,11 +22,11 @@ Application is created for people who would like to lose, increase, or maintain 
 * Firebase
 
 # Components of app
-- login/register: The user can log to account or create a new account. Check if the email exists in the database, validation of email, the password must have at least 6 characters
+- Login/register: The user can log to account or create a new account. Check if the email exists in the database, validation of email, the password must have at least 6 characters
 
 ![Alt text](https://github.com/ania789/fitapp/blob/master/images/register-erroe.png "Optional Title")
 
-- user detail: After register users have to add information such as age, height, weight, sex, activity, and purpose
+- User detail: After register users have to add information such as age, height, weight, sex, activity, and purpose
 
 ![Alt text](https://github.com/ania789/fitapp/blob/master/images/user-detail.PNG "Optional Title")
 
@@ -34,18 +34,18 @@ After calculation application suggest two option: user purpose or purpose which 
 
 ![Alt text](https://github.com/ania789/fitapp/blob/master/images/user-detail-rada.PNG "Optional Title")
 
-- add products: User can add a product which was eaten
+- Add products: User can add a product which was eaten
 
 ![Alt text](https://github.com/ania789/fitapp/blob/master/images/home2-products.PNG "Optional Title")
 
-- sum of: Shows how many kcal and macronutrients was eaten by the user
+- Sum of: Shows how many kcal and macronutrients was eaten by the user
 
 ![Alt text](https://github.com/ania789/fitapp/blob/master/images/progress-bar.PNG "Optional Title")
 
-- user: Present all information about the user
+- User: Present all information about the user
 
 ![Alt text](https://github.com/ania789/fitapp/blob/master/images/user.png "Optional Title")
 
-- quotation: Quote which is present to the user after login
+- Quotation: Quote which is present to the user after login
 
 ![Alt text](https://github.com/ania789/fitapp/blob/master/images/cytat.PNG "Optional Title")
